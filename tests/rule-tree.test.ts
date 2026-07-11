@@ -113,4 +113,14 @@ describe("RuleTree", () => {
 
     expect(rule.parent).toBeNull();
   });
+
+  it("creates a rule using the fluent api", () => {
+    const rule = Rule.field("country").equals("SE");
+
+    expect(rule.field).toBe("country");
+
+    expect(rule.value).toBe("SE");
+
+    expect(rule.operator).toBeInstanceOf(EqualsOperator);
+  });
 });

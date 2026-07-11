@@ -1,6 +1,7 @@
 import { Node } from "./node.js";
 
 import type { RuleOperator } from "../operators/rule/rule-operator.ts";
+import { FieldExpression } from "../builders/field-expression.ts";
 
 export class Rule extends Node {
   public constructor(
@@ -9,5 +10,9 @@ export class Rule extends Node {
     public readonly value: unknown,
   ) {
     super();
+  }
+
+  public static field(field: string): FieldExpression {
+    return new FieldExpression(field);
   }
 }
