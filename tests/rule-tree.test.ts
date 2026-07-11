@@ -5,6 +5,7 @@ import { Rule } from "../src/nodes/rule.ts";
 import { Group } from "../src/nodes/group.ts";
 import { AndOperator } from "../src/operators/group/and-operator.ts";
 import { NotEqualsOperator } from "../src/operators/rule/not-equals-operator.ts";
+import { Field } from "../src/fields/field.ts";
 
 describe("RuleTree", () => {
   it("builds a tree", () => {
@@ -130,5 +131,19 @@ describe("RuleTree", () => {
 
     expect(rule.operator).toBeInstanceOf(NotEqualsOperator);
     expect(rule.value).toBe("NO");
+  });
+
+  it("creates a rule from a field", () => {
+    class TestField extends Field<string> {
+      public constructor() {
+        super("country", "Land");
+      }
+    }
+
+    const rule = Rule.field(new TestField()).equals("SE");
+
+    expect(rule.field).toBe("country");
+
+    expect(rule.value).toBe("SE");
   });
 });
