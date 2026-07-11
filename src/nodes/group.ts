@@ -1,0 +1,99 @@
+import { Node } from "./node.js";
+
+import type { RuleOperator } from "../operators/rule/rule-operator.ts";
+
+export class Group extends Node {
+  private readonly _children: Node[] = [];
+
+  public constructor(public readonly operator: RuleOperator) {
+    super();
+  }
+
+  public get children(): readonly Node[] {
+    return this._children;
+  }
+
+  public append<T extends Node>(node: T): T {
+    this._children.push(this.attach(node));
+
+    return node;
+  }
+
+  public prepend<T extends Node>(node: T): T {
+    this._children.unshift(this.attach(node));
+
+    return node;
+  }
+
+  public insertBefore<T extends Node>(reference: Node, node: T): T {
+    const index = this._children.indexOf(reference);
+
+    if (index === -1) {
+      throw new Error("Reference node does not belong to this group.");
+    }
+
+    this._children.splice(index, 0, this.attach(node));
+
+    return node;
+  }
+
+  public insertAfter<T extends Node>(reference: Node, node: T): T {
+    const index = this._children.indexOf(reference);
+
+    if (index === -1) {
+      throw new Error("Reference node does not belong to this group.");
+    }
+
+    this._children.splice(index + 1, 0, this.attach(node));
+
+    return node;
+  }
+
+  public clear(): void {
+    for (const child of this._children) {
+      child.setParent(null);
+    }
+
+    this._children.length = 0;
+  }
+
+  public detach(node: Node): void {
+    const index = this._children.indexOf(node);
+
+    if (index === -1) {
+      return;
+    }
+
+    node.setParent(null);
+
+    this._children.splice(index, 1);
+  }
+
+  public replace(oldNode: Node, newNode: Node): void {
+    const index = this._children.indexOf(oldNode);
+
+    if (index === -1) {
+      throw new Error("Node does not belong to this group.");
+    }
+
+    if (newNode.parent) {
+      throw new Error("Node already belongs to a group.");
+    }
+
+    oldNode.setParent(null);
+
+    newNode.setParent(this);
+
+    this._children[index] = newNode;
+  }
+
+  private attach<T extends Node>(node: T): T {
+    if (node.parent) {
+      throw new Error("Node already belongs to a group.");
+    }
+
+    node.setParent(this);
+
+    return node;
+  }
+}
