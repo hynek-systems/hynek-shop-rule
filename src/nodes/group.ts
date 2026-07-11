@@ -1,11 +1,11 @@
 import { Node } from "./node.js";
 
-import type { RuleOperator } from "../operators/rule/rule-operator.ts";
+import type { GroupOperator } from "../operators/group/group-operator.ts";
 
 export class Group extends Node {
   private readonly _children: Node[] = [];
 
-  public constructor(public readonly operator: RuleOperator) {
+  public constructor(public readonly operator: GroupOperator) {
     super();
   }
 

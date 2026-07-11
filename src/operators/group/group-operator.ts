@@ -1,5 +1,3 @@
-export abstract class GroupOperator {
-  public abstract readonly id: string;
+import { Operator } from "../operator.ts";
 
-  public abstract readonly label: string;
-}
+export abstract class GroupOperator extends Operator {}

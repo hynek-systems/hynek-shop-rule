@@ -1,5 +1,6 @@
-export abstract class RuleOperator {
-  public abstract readonly id: string;
+import type { OperandKind } from "./operand-kind.ts";
+import { Operator } from "../operator.ts";
 
-  public abstract readonly label: string;
+export abstract class RuleOperator extends Operator {
+  public abstract readonly operandKind: OperandKind;
 }
