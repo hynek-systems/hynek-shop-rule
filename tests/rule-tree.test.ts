@@ -4,6 +4,7 @@ import { EqualsOperator } from "../src/operators/rule/equals-operator.ts";
 import { Rule } from "../src/nodes/rule.ts";
 import { Group } from "../src/nodes/group.ts";
 import { AndOperator } from "../src/operators/group/and-operator.ts";
+import { NotEqualsOperator } from "../src/operators/rule/not-equals-operator.ts";
 
 describe("RuleTree", () => {
   it("builds a tree", () => {
@@ -122,5 +123,12 @@ describe("RuleTree", () => {
     expect(rule.value).toBe("SE");
 
     expect(rule.operator).toBeInstanceOf(EqualsOperator);
+  });
+
+  it("creates a not equals rule", () => {
+    const rule = Rule.field("country").notEquals("NO");
+
+    expect(rule.operator).toBeInstanceOf(NotEqualsOperator);
+    expect(rule.value).toBe("NO");
   });
 });
