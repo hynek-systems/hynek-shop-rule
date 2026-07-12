@@ -7,4 +7,8 @@ export class EqualsOperator extends RuleOperator {
   readonly label = "Equals";
 
   readonly operandKind = OperandKind.Single;
+
+  public evaluate(left: unknown, right: unknown): boolean {
+    return left === right;
+  }
 }

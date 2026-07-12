@@ -7,4 +7,8 @@ export class ContainsOperator extends RuleOperator {
   readonly label = "Contains";
 
   readonly operandKind = OperandKind.Single;
+
+  public evaluate(left: unknown, right: unknown): boolean {
+    return (left as string).includes(right as string);
+  }
 }
