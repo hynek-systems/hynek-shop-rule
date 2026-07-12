@@ -1,7 +1,8 @@
+import type { Rule } from "../nodes/rule.ts";
 import type { BaseExpression } from "./base-expression.ts";
 
 export interface DateExpression extends BaseExpression<Date> {
-  before(value: Date): never;
+  before(value: Date): Rule;
 
   after(value: Date): never;
 

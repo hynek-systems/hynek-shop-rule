@@ -1,6 +1,7 @@
 import type { BaseExpression } from "../expression/base-expression.ts";
 import { Field } from "../fields/field.ts";
 import { Rule } from "../nodes/rule.ts";
+import { BeforeOperator } from "../operators/rule/before-operator.ts";
 import { BetweenOperator } from "../operators/rule/between-operator.ts";
 import { ContainsOperator } from "../operators/rule/contains-operator.ts";
 import { EndsWithOperator } from "../operators/rule/ends-with-operator.ts";
@@ -82,5 +83,9 @@ export class FieldExpression<T = unknown> implements BaseExpression<T> {
 
   public between(from: number, to: number): Rule {
     return new Rule(this.field, new BetweenOperator(), new Range(from, to));
+  }
+
+  public before(value: Date): Rule {
+    return new Rule(this.field, new BeforeOperator(), value);
   }
 }
