@@ -17,7 +17,7 @@ export class RuleTreeValidator extends TraversingNodeVisitor<void> implements Va
     return [...this.#errors];
   }
 
-  protected override onGroup(group: Group): void {
+  protected override onGroup(group: Group, children: readonly void[]): void {
     if (group.children.length === 0) {
       this.#errors.push(new ValidationError(group, "A group must contain at least one child."));
     }

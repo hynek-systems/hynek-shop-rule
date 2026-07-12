@@ -13,15 +13,13 @@ describe("TraversingNodeVisitor", () => {
 
     root.append(new Rule("active", new EqualsOperator(), true));
 
-    class Visitor extends TraversingNodeVisitor<void> {
-      readonly visited: string[] = [];
-
-      protected override onGroup(group: Group): void {
-        this.visited.push(`group:${group.operator.id}`);
+    class Visitor extends TraversingNodeVisitor<string[]> {
+      protected override onGroup(group: Group, children: readonly string[][]): string[] {
+        return [...children.flat(), `group:${group.operator.id}`];
       }
 
-      protected override onRule(rule: Rule): void {
-        this.visited.push(`rule:${rule.field}`);
+      protected override onRule(rule: Rule): string[] {
+        return [`rule:${rule.field}`];
       }
     }
 
@@ -29,6 +27,6 @@ describe("TraversingNodeVisitor", () => {
 
     root.accept(visitor);
 
-    expect(visitor.visited).toEqual(["rule:country", "rule:active", "group:and"]);
+    expect(root.accept(visitor)).toEqual(["rule:country", "rule:active", "group:and"]);
   });
 });
