@@ -1,7 +1,5 @@
 import { Group } from "../nodes/group.js";
 import { Rule } from "../nodes/rule.js";
-import { AndOperator } from "../operators/group/and-operator.js";
-import { OrOperator } from "../operators/group/or-operator.js";
 import { RuleTree } from "../tree/rule-tree.js";
 
 import type { FieldResolver } from "./field-resolver.js";
@@ -14,27 +12,13 @@ export class RuleEvaluator<T = unknown> {
   }
 
   private evaluateGroup(group: Group, subject: T): boolean {
-    if (group.operator instanceof AndOperator) {
-      for (const child of group.children) {
-        if (!this.evaluateNode(child as any, subject)) {
-          return false;
-        }
-      }
+    return group.operator.evaluate(this.evaluateChildren(group, subject));
+  }
 
-      return true;
+  private *evaluateChildren(group: Group, subject: T): Generator<boolean> {
+    for (const child of group.children) {
+      yield this.evaluateNode(child as any, subject);
     }
-
-    if (group.operator instanceof OrOperator) {
-      for (const child of group.children) {
-        if (this.evaluateNode(child as any, subject)) {
-          return true;
-        }
-      }
-
-      return false;
-    }
-
-    throw new Error(`Unsupported group operator "${group.operator.id}".`);
   }
 
   private evaluateNode(node: Rule | Group, subject: T): boolean {
