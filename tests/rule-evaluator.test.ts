@@ -35,4 +35,30 @@ describe("RuleEvaluator", () => {
       }),
     ).toBe(false);
   });
+
+  it("evaluates lessThanOrEqual", () => {
+    const tree = new RuleTree();
+
+    tree.root.append(Rule.field<number>("price").lessThanOrEqual(100));
+
+    const evaluator = new RuleEvaluator(new ObjectFieldResolver());
+
+    expect(
+      evaluator.evaluate(tree, {
+        price: 50,
+      }),
+    ).toBe(true);
+
+    expect(
+      evaluator.evaluate(tree, {
+        price: 100,
+      }),
+    ).toBe(true);
+
+    expect(
+      evaluator.evaluate(tree, {
+        price: 150,
+      }),
+    ).toBe(false);
+  });
 });
