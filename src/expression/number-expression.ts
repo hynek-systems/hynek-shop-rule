@@ -6,7 +6,7 @@ export interface NumberExpression extends BaseExpression<number> {
 
   greaterThanOrEqual(value: number): Rule;
 
-  lessThan(value: number): never;
+  lessThan(value: number): Rule;
 
   lessThanOrEqual(value: number): never;
 

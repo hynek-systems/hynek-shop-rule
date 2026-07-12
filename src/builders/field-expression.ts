@@ -6,6 +6,7 @@ import { EndsWithOperator } from "../operators/rule/ends-with-operator.ts";
 import { EqualsOperator } from "../operators/rule/equals-operator.ts";
 import { GreaterThanOperator } from "../operators/rule/greater-than-operator.ts";
 import { GreaterThanOrEqualOperator } from "../operators/rule/greater-than-or-equal-operator.ts";
+import { LessThanOperator } from "../operators/rule/less-than-operator.ts";
 import { NotEqualsOperator } from "../operators/rule/not-equals-operator.ts";
 import { StartsWithOperator } from "../operators/rule/starts-with-operator.ts";
 
@@ -58,5 +59,13 @@ export class FieldExpression<T = unknown> implements BaseExpression<T> {
 
   public gte(value: number): Rule {
     return this.greaterThanOrEqual(value);
+  }
+
+  public lessThan(value: number): Rule {
+    return new Rule(this.field, new LessThanOperator(), value);
+  }
+
+  public lt(value: number): Rule {
+    return this.lessThan(value);
   }
 }
