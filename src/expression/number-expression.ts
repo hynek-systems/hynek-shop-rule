@@ -1,7 +1,8 @@
+import type { Rule } from "../nodes/rule.ts";
 import type { BaseExpression } from "./base-expression.js";
 
 export interface NumberExpression extends BaseExpression<number> {
-  greaterThan(value: number): never;
+  greaterThan(value: number): Rule;
 
   greaterThanOrEqual(value: number): never;
 

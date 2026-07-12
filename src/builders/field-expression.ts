@@ -4,6 +4,7 @@ import { Rule } from "../nodes/rule.js";
 import { ContainsOperator } from "../operators/rule/contains-operator.ts";
 import { EndsWithOperator } from "../operators/rule/ends-with-operator.ts";
 import { EqualsOperator } from "../operators/rule/equals-operator.js";
+import { GreaterThanOperator } from "../operators/rule/greater-than-operator.ts";
 import { NotEqualsOperator } from "../operators/rule/not-equals-operator.ts";
 import { StartsWithOperator } from "../operators/rule/starts-with-operator.ts";
 
@@ -32,5 +33,13 @@ export class FieldExpression<T = unknown> implements BaseExpression<T> {
 
   public endsWith(value: string): Rule {
     return new Rule(this.field, new EndsWithOperator(), value);
+  }
+
+  public greaterThan(value: number): Rule {
+    return new Rule(this.field, new GreaterThanOperator(), value);
+  }
+
+  public gt(value: number): Rule {
+    return this.greaterThan(value);
   }
 }
