@@ -8,16 +8,15 @@ import { RuleTreeDeserializer } from "../src/serializer/rule-tree-deserializer.t
 import { RuleTreeSerializer } from "../src/serializer/rule-tree-serializer.ts";
 import { RuleTree } from "../src/tree/rule-tree.ts";
 import { Rule } from "../src/nodes/rule.ts";
+import { RuleContext } from "../src/rule-context.ts";
 
 describe("RuleTree deserialization", () => {
   it("deserializes a tree", () => {
-    const groupOperators = new OperatorRegistry<GroupOperator>();
-    groupOperators.register(new AndOperator());
+    const context = new RuleContext();
+    context.groupOperators.register(new AndOperator());
+    context.ruleOperators.register(new EqualsOperator());
 
-    const ruleOperators = new OperatorRegistry<RuleOperator>();
-    ruleOperators.register(new EqualsOperator());
-
-    const tree = new RuleTreeDeserializer(groupOperators, ruleOperators).deserialize({
+    const tree = new RuleTreeDeserializer(context).deserialize({
       root: {
         type: "group",
         operator: "and",
@@ -42,14 +41,39 @@ describe("RuleTree deserialization", () => {
     const ruleOperators = new OperatorRegistry<RuleOperator>();
     ruleOperators.register(new EqualsOperator());
 
+    const context = new RuleContext();
+    context.groupOperators.register(new AndOperator());
+    context.ruleOperators.register(new EqualsOperator());
+
     const original = new RuleTree();
 
     original.root.append(Rule.field("country").equals("SE"));
 
     const dto = new RuleTreeSerializer().serialize(original);
 
-    const restored = new RuleTreeDeserializer(groupOperators, ruleOperators).deserialize(dto);
+    const restored = new RuleTreeDeserializer(context).deserialize(dto);
 
     expect(new RuleTreeSerializer().serialize(restored)).toEqual(dto);
+  });
+
+  it("creates a tree using RuleTree.fromJSON", () => {
+    const context = new RuleContext();
+
+    context.groupOperators.register(new AndOperator());
+
+    context.ruleOperators.register(new EqualsOperator());
+
+    const tree = RuleTree.fromJSON(
+      {
+        root: {
+          type: "group",
+          operator: "and",
+          children: [],
+        },
+      },
+      context,
+    );
+
+    expect(tree).toBeInstanceOf(RuleTree);
   });
 });
