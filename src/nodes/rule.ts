@@ -3,6 +3,7 @@ import type { Field } from "../fields/field.js";
 import type { RuleOperator } from "../operators/rule/rule-operator.ts";
 import { FieldExpression } from "../builders/field-expression.ts";
 import type { NodeVisitor } from "../visitors/node-visitor.ts";
+import type { Expression } from "../expression/expression.ts";
 
 export class Rule extends Node {
   public constructor(
@@ -13,8 +14,8 @@ export class Rule extends Node {
     super();
   }
 
-  public static field<T = unknown>(field: Field<T> | string): FieldExpression<T> {
-    return new FieldExpression<T>(field);
+  public static field<T = unknown>(field: Field<T> | string): Expression<T> {
+    return new FieldExpression<T>(field) as unknown as Expression<T>;
   }
 
   public accept<TResult>(visitor: NodeVisitor<TResult>): TResult {
