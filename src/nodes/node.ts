@@ -1,3 +1,4 @@
+import type { NodeVisitor } from "../visitors/node-visitor.ts";
 import type { Group } from "./group.ts";
 
 export abstract class Node {
@@ -30,4 +31,6 @@ export abstract class Node {
   public replaceWith(node: Node): void {
     this.parent?.replace(this, node);
   }
+
+  public abstract accept<TResult>(visitor: NodeVisitor<TResult>): TResult;
 }

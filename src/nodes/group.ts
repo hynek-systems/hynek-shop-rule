@@ -1,6 +1,7 @@
 import { Node } from "./node.js";
 
 import type { GroupOperator } from "../operators/group/group-operator.ts";
+import type { NodeVisitor } from "../visitors/node-visitor.ts";
 
 export class Group extends Node {
   private readonly _children: Node[] = [];
@@ -85,6 +86,10 @@ export class Group extends Node {
     newNode.setParent(this);
 
     this._children[index] = newNode;
+  }
+
+  public accept<TResult>(visitor: NodeVisitor<TResult>): TResult {
+    return visitor.visitGroup(this);
   }
 
   private attach<T extends Node>(node: T): T {
