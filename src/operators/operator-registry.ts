@@ -1,6 +1,6 @@
-import { Operator } from "./operator.js";
+import { Operator } from "./operator.ts";
 
-import { Registry } from "../support/registry.js";
+import { Registry } from "../support/registry.ts";
 
 export class OperatorRegistry<TOperator extends Operator = Operator> extends Registry<
   string,

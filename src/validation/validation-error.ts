@@ -1,4 +1,4 @@
-import { Node } from "../nodes/node.js";
+import { Node } from "../nodes/node.ts";
 
 export class ValidationError {
   public constructor(

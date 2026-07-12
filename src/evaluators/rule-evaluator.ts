@@ -1,9 +1,9 @@
-import { Group } from "../nodes/group.js";
-import { Rule } from "../nodes/rule.js";
-import { RuleTree } from "../tree/rule-tree.js";
-import { TraversingNodeVisitor } from "../visitors/traversing-node-visitor.js";
+import { Group } from "../nodes/group.ts";
+import { Rule } from "../nodes/rule.ts";
+import { RuleTree } from "../tree/rule-tree.ts";
+import { TraversingNodeVisitor } from "../visitors/traversing-node-visitor.ts";
 
-import type { FieldResolver } from "./field-resolver.js";
+import type { FieldResolver } from "./field-resolver.ts";
 
 export class RuleEvaluator<T = unknown> extends TraversingNodeVisitor<boolean> {
   public constructor(private readonly resolver: FieldResolver<T>) {

@@ -1,4 +1,4 @@
-import { RuleOperator } from "./rule-operator.js";
+import { RuleOperator } from "./rule-operator.ts";
 import { OperandKind } from "./operand-kind.ts";
 
 export class EndsWithOperator extends RuleOperator {

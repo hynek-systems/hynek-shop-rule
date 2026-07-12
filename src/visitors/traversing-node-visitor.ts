@@ -1,7 +1,7 @@
-import { Group } from "../nodes/group.js";
-import { Rule } from "../nodes/rule.js";
+import { Group } from "../nodes/group.ts";
+import { Rule } from "../nodes/rule.ts";
 
-import type { NodeVisitor } from "./node-visitor.js";
+import type { NodeVisitor } from "./node-visitor.ts";
 
 export abstract class TraversingNodeVisitor<TResult> implements NodeVisitor<TResult> {
   public visitGroup(group: Group): TResult {

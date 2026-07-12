@@ -1,8 +1,8 @@
-import type { BooleanExpression } from "./boolean-expression.js";
-import type { DateExpression } from "./date-expression.js";
-import type { NumberExpression } from "./number-expression.js";
-import type { BaseExpression } from "./base-expression.js";
-import type { StringExpression } from "./string-expression.js";
+import type { BooleanExpression } from "./boolean-expression.ts";
+import type { DateExpression } from "./date-expression.ts";
+import type { NumberExpression } from "./number-expression.ts";
+import type { BaseExpression } from "./base-expression.ts";
+import type { StringExpression } from "./string-expression.ts";
 
 export type Expression<T> = T extends string
   ? StringExpression

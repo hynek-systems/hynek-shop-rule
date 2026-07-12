@@ -1,4 +1,4 @@
-import { GroupOperator } from "./group-operator.js";
+import { GroupOperator } from "./group-operator.ts";
 
 export class AndOperator extends GroupOperator {
   public readonly id = "and";

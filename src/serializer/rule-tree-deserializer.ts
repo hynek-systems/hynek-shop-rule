@@ -1,8 +1,8 @@
-import { Group } from "../nodes/group.js";
-import { Rule } from "../nodes/rule.js";
-import { RuleTree } from "../tree/rule-tree.js";
+import { Group } from "../nodes/group.ts";
+import { Rule } from "../nodes/rule.ts";
+import { RuleTree } from "../tree/rule-tree.ts";
 
-import type { GroupDto, RuleDto, RuleTreeDto } from "./types.js";
+import type { GroupDto, RuleDto, RuleTreeDto } from "./types.ts";
 import type { RuleContext } from "../rule-context.ts";
 
 export class RuleTreeDeserializer {

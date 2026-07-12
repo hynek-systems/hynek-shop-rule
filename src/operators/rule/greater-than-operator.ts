@@ -1,5 +1,5 @@
 import { OperandKind } from "./operand-kind.ts";
-import { RuleOperator } from "./rule-operator.js";
+import { RuleOperator } from "./rule-operator.ts";
 
 export class GreaterThanOperator extends RuleOperator {
   public readonly id = "greater_than";

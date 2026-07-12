@@ -1,4 +1,4 @@
-import type { BaseExpression } from "./base-expression.js";
+import type { BaseExpression } from "./base-expression.ts";
 
 export interface DateExpression extends BaseExpression<Date> {
   before(value: Date): never;

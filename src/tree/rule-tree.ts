@@ -1,4 +1,4 @@
-import { Group } from "../nodes/group.js";
+import { Group } from "../nodes/group.ts";
 import { AndOperator } from "../operators/group/and-operator.ts";
 import { RuleTreeSerializer } from "../serializer/rule-tree-serializer.ts";
 import type { RuleTreeDto } from "../serializer/types.ts";

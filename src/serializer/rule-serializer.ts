@@ -1,6 +1,6 @@
-import { Rule } from "../nodes/rule.js";
+import { Rule } from "../nodes/rule.ts";
 
-import type { RuleDto } from "./types.js";
+import type { RuleDto } from "./types.ts";
 
 export class RuleSerializer {
   public serialize(rule: Rule): RuleDto {

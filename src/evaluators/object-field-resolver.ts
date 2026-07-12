@@ -1,4 +1,4 @@
-import type { FieldResolver } from "./field-resolver.js";
+import type { FieldResolver } from "./field-resolver.ts";
 
 export class ObjectFieldResolver implements FieldResolver<object> {
   public resolve(subject: object, field: string): unknown {

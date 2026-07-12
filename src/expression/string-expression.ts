@@ -1,5 +1,5 @@
 import type { Rule } from "../nodes/rule.ts";
-import type { BaseExpression } from "./base-expression.js";
+import type { BaseExpression } from "./base-expression.ts";
 
 export interface StringExpression extends BaseExpression<string> {
   contains(value: string): Rule;

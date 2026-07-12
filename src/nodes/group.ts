@@ -1,4 +1,4 @@
-import { Node } from "./node.js";
+import { Node } from "./node.ts";
 
 import type { GroupOperator } from "../operators/group/group-operator.ts";
 import type { NodeVisitor } from "../visitors/node-visitor.ts";

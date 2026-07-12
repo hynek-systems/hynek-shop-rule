@@ -1,5 +1,5 @@
-import { Node } from "./node.js";
-import type { Field } from "../fields/field.js";
+import { Node } from "./node.ts";
+import type { Field } from "../fields/field.ts";
 import type { RuleOperator } from "../operators/rule/rule-operator.ts";
 import { FieldExpression } from "../builders/field-expression.ts";
 import type { NodeVisitor } from "../visitors/node-visitor.ts";

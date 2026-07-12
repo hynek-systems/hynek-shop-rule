@@ -1,9 +1,9 @@
-import { Group } from "../nodes/group.js";
-import { Rule } from "../nodes/rule.js";
+import { Group } from "../nodes/group.ts";
+import { Rule } from "../nodes/rule.ts";
 
-import { RuleSerializer } from "./rule-serializer.js";
+import { RuleSerializer } from "./rule-serializer.ts";
 
-import type { GroupDto, NodeDto } from "./types.js";
+import type { GroupDto, NodeDto } from "./types.ts";
 
 export class GroupSerializer {
   readonly #ruleSerializer = new RuleSerializer();
