@@ -4,7 +4,7 @@ import { RuleTreeSerializer } from "../serializer/rule-tree-serializer.ts";
 import type { RuleTreeDto } from "../serializer/types.ts";
 
 export class RuleTree {
-  public readonly root = new Group(new AndOperator());
+  constructor(public readonly root = new Group(new AndOperator())) {}
 
   public toJSON(): RuleTreeDto {
     return new RuleTreeSerializer().serialize(this);
