@@ -63,16 +63,13 @@ describe("RuleTree deserialization", () => {
 
     context.ruleOperators.register(new EqualsOperator());
 
-    const tree = RuleTree.fromJSON(
-      {
-        root: {
-          type: "group",
-          operator: "and",
-          children: [],
-        },
+    const tree = context.fromJSON({
+      root: {
+        type: "group",
+        operator: "and",
+        children: [],
       },
-      context,
-    );
+    });
 
     expect(tree).toBeInstanceOf(RuleTree);
   });
