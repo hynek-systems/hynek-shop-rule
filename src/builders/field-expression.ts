@@ -3,10 +3,10 @@ import { Rule } from "../nodes/rule.js";
 import { EqualsOperator } from "../operators/rule/equals-operator.js";
 import { NotEqualsOperator } from "../operators/rule/not-equals-operator.ts";
 
-export class FieldExpression {
+export class FieldExpression<T = unknown> {
   private readonly field: string;
 
-  public constructor(field: string | Field) {
+  public constructor(field: string | Field<T>) {
     this.field = field instanceof Field ? field.id : field;
   }
 

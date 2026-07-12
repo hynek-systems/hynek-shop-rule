@@ -13,8 +13,8 @@ export class Rule extends Node {
     super();
   }
 
-  public static field(field: Field | string): FieldExpression {
-    return new FieldExpression(field);
+  public static field<T = unknown>(field: Field<T> | string): FieldExpression<T> {
+    return new FieldExpression<T>(field);
   }
 
   public accept<TResult>(visitor: NodeVisitor<TResult>): TResult {
