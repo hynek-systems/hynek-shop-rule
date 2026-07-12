@@ -1,6 +1,7 @@
 import type { BaseExpression } from "../expression/base-expression.ts";
 import { Field } from "../fields/field.ts";
 import { Rule } from "../nodes/rule.ts";
+import { BetweenOperator } from "../operators/rule/between-operator.ts";
 import { ContainsOperator } from "../operators/rule/contains-operator.ts";
 import { EndsWithOperator } from "../operators/rule/ends-with-operator.ts";
 import { EqualsOperator } from "../operators/rule/equals-operator.ts";
@@ -10,6 +11,7 @@ import { LessThanOperator } from "../operators/rule/less-than-operator.ts";
 import { LessThanOrEqualOperator } from "../operators/rule/less-than-or-equal-operator.ts";
 import { NotEqualsOperator } from "../operators/rule/not-equals-operator.ts";
 import { StartsWithOperator } from "../operators/rule/starts-with-operator.ts";
+import { Range } from "../values/range.ts";
 
 export class FieldExpression<T = unknown> implements BaseExpression<T> {
   private readonly field: string;
@@ -76,5 +78,9 @@ export class FieldExpression<T = unknown> implements BaseExpression<T> {
 
   public lte(value: number): Rule {
     return this.lessThanOrEqual(value);
+  }
+
+  public between(from: number, to: number): Rule {
+    return new Rule(this.field, new BetweenOperator(), new Range(from, to));
   }
 }

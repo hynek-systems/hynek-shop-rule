@@ -61,4 +61,30 @@ describe("RuleEvaluator", () => {
       }),
     ).toBe(false);
   });
+
+  it("evaluates between", () => {
+    const tree = new RuleTree();
+
+    tree.root.append(Rule.field<number>("price").between(100, 200));
+
+    const evaluator = new RuleEvaluator(new ObjectFieldResolver());
+
+    expect(
+      evaluator.evaluate(tree, {
+        price: 150,
+      }),
+    ).toBe(true);
+
+    expect(
+      evaluator.evaluate(tree, {
+        price: 99,
+      }),
+    ).toBe(false);
+
+    expect(
+      evaluator.evaluate(tree, {
+        price: 201,
+      }),
+    ).toBe(false);
+  });
 });

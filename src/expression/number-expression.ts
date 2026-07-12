@@ -10,5 +10,5 @@ export interface NumberExpression extends BaseExpression<number> {
 
   lessThanOrEqual(value: number): Rule;
 
-  between(min: number, max: number): never;
+  between(min: number, max: number): Rule;
 }
