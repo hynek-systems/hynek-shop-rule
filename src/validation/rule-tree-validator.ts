@@ -1,43 +1,31 @@
 import { Group } from "../nodes/group.js";
-import { Node } from "../nodes/node.js";
 import { Rule } from "../nodes/rule.js";
 import { RuleTree } from "../tree/rule-tree.js";
+import { TraversingNodeVisitor } from "../visitors/traversing-node-visitor.js";
 
 import { ValidationError } from "./validation-error.js";
 import type { Validator } from "./validator.js";
 
-export class RuleTreeValidator implements Validator<RuleTree> {
+export class RuleTreeValidator extends TraversingNodeVisitor<void> implements Validator<RuleTree> {
+  readonly #errors: ValidationError[] = [];
+
   public validate(tree: RuleTree): ValidationError[] {
-    const errors: ValidationError[] = [];
+    this.#errors.length = 0;
 
-    this.validateNode(tree.root, errors);
+    tree.root.accept(this);
 
-    return errors;
+    return [...this.#errors];
   }
 
-  private validateNode(node: Node, errors: ValidationError[]): void {
-    if (node instanceof Group) {
-      this.validateGroup(node, errors);
-
-      return;
-    } else if (node instanceof Rule) {
-      this.validateRule(node, errors);
-    }
-  }
-
-  private validateGroup(group: Group, errors: ValidationError[]): void {
+  protected override onGroup(group: Group): void {
     if (group.children.length === 0) {
-      errors.push(new ValidationError(group, "A group must contain at least one child."));
-    }
-
-    for (const child of group.children) {
-      this.validateNode(child, errors);
+      this.#errors.push(new ValidationError(group, "A group must contain at least one child."));
     }
   }
 
-  private validateRule(rule: Rule, errors: ValidationError[]): void {
+  protected override onRule(rule: Rule): void {
     if (rule.field.trim().length === 0) {
-      errors.push(new ValidationError(rule, "A rule must specify a field."));
+      this.#errors.push(new ValidationError(rule, "A rule must specify a field."));
     }
   }
 }
