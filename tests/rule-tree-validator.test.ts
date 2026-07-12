@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vite-plus/test";
-import { RuleTree } from "../src/tree/rule-tree.js";
-import { RuleTreeValidator } from "../src/validation/rule-tree-validator.js";
+import { RuleTree } from "../src/tree/rule-tree.ts";
+import { RuleTreeValidator } from "../src/validation/rule-tree-validator.ts";
 import { Rule } from "../src/nodes/rule.ts";
 
 describe("RuleTreeValidator", () => {
