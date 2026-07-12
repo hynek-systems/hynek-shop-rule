@@ -6,5 +6,5 @@ export interface DateExpression extends BaseExpression<Date> {
 
   after(value: Date): never;
 
-  between(from: Date, to: Date): never;
+  between(from: Date, to: Date): Rule;
 }
