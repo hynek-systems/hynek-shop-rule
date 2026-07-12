@@ -1,11 +1,9 @@
 import { Group } from "../nodes/group.ts";
 import { Rule } from "../nodes/rule.ts";
 import { RuleTree } from "../tree/rule-tree.ts";
-import { Range } from "../values/range.ts";
 
 import type { GroupDto, RuleDto, RuleTreeDto } from "./types.ts";
 import type { RuleContext } from "../rule-context.ts";
-import { OperandKind } from "../operators/rule/operand-kind.ts";
 
 export class RuleTreeDeserializer {
   public constructor(private readonly context: RuleContext) {}
@@ -33,25 +31,6 @@ export class RuleTreeDeserializer {
   private deserializeRule(dto: RuleDto): Rule {
     const operator = this.context.ruleOperators.get(dto.operator);
 
-    return new Rule(dto.field, operator, this.deserializeOperand(operator.operandKind, dto.value));
-  }
-
-  private deserializeOperand(operandKind: OperandKind, value: unknown): unknown {
-    switch (operandKind) {
-      case OperandKind.Range:
-        return this.deserializeRange(value);
-
-      default:
-        return value;
-    }
-  }
-
-  private deserializeRange(value: unknown): Range<unknown> {
-    const range = value as {
-      from: unknown;
-      to: unknown;
-    };
-
-    return new Range(range.from, range.to);
+    return new Rule(dto.field, operator, operator.deserializeOperand(dto.value));
   }
 }

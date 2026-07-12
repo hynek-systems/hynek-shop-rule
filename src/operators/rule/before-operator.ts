@@ -12,4 +12,16 @@ export class BeforeOperator extends RuleOperator {
   public evaluate(left: unknown, right: unknown): boolean {
     return left instanceof Date && right instanceof Date && left < right;
   }
+
+  public override serializeOperand(value: unknown): unknown {
+    const date = value as Date;
+
+    return date.toISOString();
+  }
+
+  public override deserializeOperand(value: unknown): unknown {
+    const date = value as string;
+
+    return new Date(date);
+  }
 }

@@ -22,4 +22,22 @@ export class BetweenOperator extends RuleOperator {
       left <= right.to
     );
   }
+
+  public override serializeOperand(value: unknown): unknown {
+    const range = value as Range<number>;
+
+    return {
+      from: range.from,
+      to: range.to,
+    };
+  }
+
+  public override deserializeOperand(value: unknown): unknown {
+    const range = value as {
+      from: number;
+      to: number;
+    };
+
+    return new Range(range.from, range.to);
+  }
 }
