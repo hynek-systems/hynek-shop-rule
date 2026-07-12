@@ -6,5 +6,5 @@ export interface StringExpression extends BaseExpression<string> {
 
   startsWith(value: string): Rule;
 
-  endsWith(value: string): never;
+  endsWith(value: string): Rule;
 }
