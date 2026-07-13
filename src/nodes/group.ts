@@ -33,7 +33,7 @@ export class Group extends Node {
       throw new Error("Reference node does not belong to this group.");
     }
 
-    this._children.splice(index, 0, this.attach(node));
+    this.insertAt(index, node);
 
     return node;
   }
@@ -45,7 +45,7 @@ export class Group extends Node {
       throw new Error("Reference node does not belong to this group.");
     }
 
-    this._children.splice(index + 1, 0, this.attach(node));
+    this.insertAt(index + 1, node);
 
     return node;
   }
@@ -72,7 +72,7 @@ export class Group extends Node {
     const index = this._children.indexOf(node);
 
     if (index === -1) {
-      return -1;
+      throw new Error("Node does not belong to this group.");
     }
 
     node.setParent(null);

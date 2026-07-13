@@ -79,8 +79,7 @@ describe("Group", () => {
   it("should return -1 when detaching a non-existent child node", () => {
     const group = new Group(new OrOperator());
     const child = new Group(new AndOperator());
-    const index = group.detach(child);
-    expect(index).toBe(-1);
+    expect(() => group.detach(child)).toThrow("Node does not belong to this group.");
   });
 
   it("should replace a child node with a new node", () => {
