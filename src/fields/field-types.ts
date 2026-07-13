@@ -1,6 +1,7 @@
 import { FieldType } from "./field-type.ts";
+import { ValueControl } from "./value-control.ts";
 
-export const StringFieldType = new FieldType<string>("string", "String", [
+export const StringFieldType = new FieldType<string>("string", "String", ValueControl.Text, [
   "=",
   "!=",
   "contains",
@@ -8,7 +9,7 @@ export const StringFieldType = new FieldType<string>("string", "String", [
   "ends_with",
 ]);
 
-export const NumberFieldType = new FieldType<number>("number", "Number", [
+export const NumberFieldType = new FieldType<number>("number", "Number", ValueControl.Number, [
   "=",
   "!=",
   "greater_than",
@@ -18,9 +19,9 @@ export const NumberFieldType = new FieldType<number>("number", "Number", [
   "between",
 ]);
 
-export const BooleanFieldType = new FieldType<boolean>("boolean", "Boolean");
+export const BooleanFieldType = new FieldType<boolean>("boolean", "Boolean", ValueControl.Boolean);
 
-export const DateFieldType = new FieldType<Date>("date", "Date", [
+export const DateFieldType = new FieldType<Date>("date", "Date", ValueControl.Date, [
   "=",
   "!=",
   "before",
