@@ -4,7 +4,7 @@ import { Range } from "../../values/range.ts";
 
 import { RuleOperator } from "./rule-operator.ts";
 
-export class BetweenOperator<T> extends RuleOperator {
+export class BetweenOperator extends RuleOperator {
   public readonly id = "between";
 
   public readonly label = "Between";
@@ -34,21 +34,36 @@ export class BetweenOperator<T> extends RuleOperator {
   }
 
   public override serializeOperand(value: unknown): unknown {
-    const range = value as Range<T>;
+    const range = value as Range<unknown>;
 
     return {
-      from: range.from,
-      to: range.to,
+      from: this.serializeValue(range.from),
+      to: this.serializeValue(range.to),
     };
+  }
+
+  private serializeValue(value: unknown): unknown {
+    if (value instanceof Date) {
+      return value.toISOString();
+    }
+
+    return value;
   }
 
   public override deserializeOperand(value: unknown): unknown {
     const range = value as {
-      from: T;
-      to: T;
+      from: unknown;
+      to: unknown;
     };
 
-    // TODO: When date the return should be new Rande(new Date(range.from as unknown as string), new Date(range.to as unknown as string));
-    return new Range(range.from, range.to);
+    return new Range(this.deserializeValue(range.from), this.deserializeValue(range.to));
+  }
+
+  private deserializeValue(value: unknown): unknown {
+    if (typeof value === "string" && !Number.isNaN(Date.parse(value))) {
+      return new Date(value);
+    }
+
+    return value;
   }
 }
