@@ -1,16 +1,21 @@
 {
-  "name": "@hynek-shop/rule-builder",
-  "version": "0.0.0",
-  "description": "A starter for creating a TypeScript package.",
-  "homepage": "https://github.com/author/library#readme",
+  "name": "@hynek-shop/rule",
+  "version": "0.0.1",
+  "description": "A rule builder library for creating and evaluating rules in a structured manner.",
+  "keywords": [
+    "campino",
+    "hynek",
+    "hynek-shop"
+  ],
+  "homepage": "https://github.com/hynek-systems/hynek-shop-rule#readme",
   "bugs": {
-    "url": "https://github.com/author/library/issues"
+    "url": "https://github.com/hynek-systems/hynek-shop-rule/issues"
   },
   "license": "MIT",
-  "author": "Author Name <author.name@mail.com>",
+  "author": "Henric Söderlind <henric.soderlind@outlook.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/author/library.git"
+    "url": "git+https://github.com/hynek-systems/hynek-shop-rule.git"
   },
   "files": [
     "dist"
