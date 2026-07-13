@@ -15,7 +15,9 @@ export class RuleContext {
   public readonly fields = new FieldCollection();
 
   public getOperators(field: Field): RuleOperator[] {
-    return (field.options.operators ?? []).map((id) => this.ruleOperators.get(id));
+    const ids = field.options.operators ?? field.type.operators;
+
+    return ids.map((id) => this.ruleOperators.get(id));
   }
 
   public fromJSON(dto: RuleTreeDto): RuleTree {

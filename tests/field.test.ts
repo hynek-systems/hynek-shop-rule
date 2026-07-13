@@ -26,4 +26,18 @@ describe("Field", () => {
 
     expect(field.options.icon).toBe("currency");
   });
+
+  it("uses the field type operators by default", () => {
+    const field = new Field("price", "Price", NumberFieldType);
+
+    expect(field.type.operators).toContain("greater_than");
+  });
+
+  it("allows field operators to override the field type", () => {
+    const field = new Field("email", "Email", StringFieldType, {
+      operators: ["="],
+    });
+
+    expect(field.options.operators).toEqual(["="]);
+  });
 });
