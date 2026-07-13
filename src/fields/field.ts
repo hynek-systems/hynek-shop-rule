@@ -1,9 +1,13 @@
+import type { RuleOperator } from "../operators/rule/rule-operator.ts";
+
 export interface FieldOptions {
   category?: string;
 
   description?: string;
 
   icon?: string;
+
+  operators?: readonly RuleOperator["id"][];
 }
 
 export class Field {

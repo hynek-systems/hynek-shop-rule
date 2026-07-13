@@ -1,4 +1,5 @@
 import { FieldCollection } from "./fields/field-collection.ts";
+import type { Field } from "./fields/field.ts";
 import { GroupOperator } from "./operators/group/group-operator.ts";
 import { OperatorRegistry } from "./operators/operator-registry.ts";
 import { RuleOperator } from "./operators/rule/rule-operator.ts";
@@ -12,6 +13,10 @@ export class RuleContext {
   public readonly ruleOperators = new OperatorRegistry<RuleOperator>();
 
   public readonly fields = new FieldCollection();
+
+  public getOperators(field: Field): RuleOperator[] {
+    return (field.options.operators ?? []).map((id) => this.ruleOperators.get(id));
+  }
 
   public fromJSON(dto: RuleTreeDto): RuleTree {
     return new RuleTreeDeserializer(this).deserialize(dto);
