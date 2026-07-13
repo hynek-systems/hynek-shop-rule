@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vite-plus/test";
 
-import { GreaterThanOrEqualOperator } from "../src/operators/rule/greater-than-or-equal-operator.ts";
-import { RuleTree } from "../src/tree/rule-tree.ts";
-import { Rule } from "../src/nodes/rule.ts";
-import { RuleEvaluator } from "../src/evaluators/rule-evaluator.ts";
-import { ObjectFieldResolver } from "../src/evaluators/object-field-resolver.ts";
+import { GreaterThanOrEqualOperator } from "../../src/operators/rule/greater-than-or-equal-operator.ts";
+import { RuleTree } from "../../src/tree/rule-tree.ts";
+import { Rule } from "../../src/nodes/rule.ts";
+import { RuleEvaluator } from "../../src/evaluators/rule-evaluator.ts";
+import { ObjectFieldResolver } from "../../src/evaluators/object-field-resolver.ts";
 
 describe("GreaterThanOrEqualOperator", () => {
   it("returns true when left is greater than right", () => {

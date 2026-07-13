@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vite-plus/test";
-import { OrOperator } from "../src/operators/group/or-operator.js";
+import { OrOperator } from "../../src/operators/group/or-operator.js";
 
 describe("OrOperator", () => {
   it("short-circuits on true", () => {

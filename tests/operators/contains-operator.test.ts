@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vite-plus/test";
-import { ContainsOperator } from "../src/operators/rule/contains-operator.ts";
+import { ContainsOperator } from "../../src/operators/rule/contains-operator.ts";
 
 describe("ContainsOperator", () => {
   it("returns true when the left string contains the right string", () => {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vite-plus/test";
 
-import { BeforeOperator } from "../src/operators/rule/before-operator.ts";
+import { BeforeOperator } from "../../src/operators/rule/before-operator.ts";
 
 describe("BeforeOperator", () => {
   it("returns true when the date is before", () => {

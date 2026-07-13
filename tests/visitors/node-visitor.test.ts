@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vite-plus/test";
-import { AndOperator } from "../src/operators/group/and-operator.ts";
-import { Group } from "../src/nodes/group.ts";
-import type { NodeVisitor } from "../src/visitors/node-visitor.ts";
-import { Rule } from "../src/nodes/rule.ts";
-import { EqualsOperator } from "../src/operators/rule/equals-operator.ts";
+import { AndOperator } from "../../src/operators/group/and-operator.ts";
+import { Group } from "../../src/nodes/group.ts";
+import type { NodeVisitor } from "../../src/visitors/node-visitor.ts";
+import { Rule } from "../../src/nodes/rule.ts";
+import { EqualsOperator } from "../../src/operators/rule/equals-operator.ts";
 
 describe("NodeVisitor", () => {
   it("visits a group", () => {

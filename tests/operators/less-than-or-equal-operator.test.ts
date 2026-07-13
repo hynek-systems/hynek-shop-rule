@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vite-plus/test";
 
-import { LessThanOrEqualOperator } from "../src/operators/rule/less-than-or-equal-operator.js";
+import { LessThanOrEqualOperator } from "../../src/operators/rule/less-than-or-equal-operator.ts";
 
 describe("LessThanOrEqualOperator", () => {
   it("returns true when left is less than right", () => {

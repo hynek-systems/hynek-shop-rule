@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vite-plus/test";
-import { Group } from "../src/nodes/group.ts";
-import { AndOperator } from "../src/operators/group/and-operator.ts";
-import { Rule } from "../src/nodes/rule.ts";
-import { EqualsOperator } from "../src/operators/rule/equals-operator.ts";
-import { TraversingNodeVisitor } from "../src/visitors/traversing-node-visitor.ts";
+import { Group } from "../../src/nodes/group.ts";
+import { AndOperator } from "../../src/operators/group/and-operator.ts";
+import { Rule } from "../../src/nodes/rule.ts";
+import { EqualsOperator } from "../../src/operators/rule/equals-operator.ts";
+import { TraversingNodeVisitor } from "../../src/visitors/traversing-node-visitor.ts";
 
 describe("TraversingNodeVisitor", () => {
   it("traverses the tree in post-order", () => {

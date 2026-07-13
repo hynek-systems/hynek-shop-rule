@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vite-plus/test";
 
-import { AfterOperator } from "../src/operators/rule/after-operator.ts";
+import { AfterOperator } from "../../src/operators/rule/after-operator.ts";
 
 describe("AfterOperator", () => {
   it("returns true when left is after right", () => {

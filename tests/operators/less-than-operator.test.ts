@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vite-plus/test";
 
-import { LessThanOperator } from "../src/operators/rule/less-than-operator.ts";
-import { RuleTree } from "../src/tree/rule-tree.ts";
-import { Rule } from "../src/nodes/rule.ts";
-import { RuleEvaluator } from "../src/evaluators/rule-evaluator.ts";
-import { ObjectFieldResolver } from "../src/evaluators/object-field-resolver.ts";
+import { LessThanOperator } from "../../src/operators/rule/less-than-operator.ts";
+import { RuleTree } from "../../src/tree/rule-tree.ts";
+import { Rule } from "../../src/nodes/rule.ts";
+import { RuleEvaluator } from "../../src/evaluators/rule-evaluator.ts";
+import { ObjectFieldResolver } from "../../src/evaluators/object-field-resolver.ts";
 
 describe("LessThanOperator", () => {
   it("returns true when left is less than right", () => {

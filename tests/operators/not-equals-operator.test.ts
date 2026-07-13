@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vite-plus/test";
-import { NotEqualsOperator } from "../src/operators/rule/not-equals-operator.ts";
+import { NotEqualsOperator } from "../../src/operators/rule/not-equals-operator.ts";
 
 describe("NotEqualsOperator", () => {
   it("returns true for different values", () => {

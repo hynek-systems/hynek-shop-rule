@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vite-plus/test";
-import { AndOperator } from "../src/operators/group/and-operator.js";
+import { AndOperator } from "../../src/operators/group/and-operator.js";
 
 describe("AndOperator", () => {
   it("short-circuits on false", () => {

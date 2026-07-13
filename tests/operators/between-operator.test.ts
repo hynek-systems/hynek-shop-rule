@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vite-plus/test";
-import { BetweenOperator } from "../src/operators/rule/between-operator.ts";
-import { Range } from "../src/values/range.ts";
+import { BetweenOperator } from "../../src/operators/rule/between-operator.ts";
+import { Range } from "../../src/values/range.ts";
 
 describe("BetweenOperator", () => {
   it("returns true for values inside the range", () => {

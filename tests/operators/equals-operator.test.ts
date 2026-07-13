@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vite-plus/test";
-import { EqualsOperator } from "../src/operators/rule/equals-operator.ts";
+import { EqualsOperator } from "../../src/operators/rule/equals-operator.ts";
 
 describe("EqualsOperator", () => {
   it("returns true for equal values", () => {

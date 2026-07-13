@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vite-plus/test";
-import { StartsWithOperator } from "../src/operators/rule/starts-with-operator.ts";
-import { ObjectFieldResolver } from "../src/evaluators/object-field-resolver.ts";
-import { RuleEvaluator } from "../src/evaluators/rule-evaluator.ts";
-import { RuleTree } from "../src/tree/rule-tree.ts";
-import { Rule } from "../src/nodes/rule.ts";
+import { StartsWithOperator } from "../../src/operators/rule/starts-with-operator.ts";
+import { ObjectFieldResolver } from "../../src/evaluators/object-field-resolver.ts";
+import { RuleEvaluator } from "../../src/evaluators/rule-evaluator.ts";
+import { RuleTree } from "../../src/tree/rule-tree.ts";
+import { Rule } from "../../src/nodes/rule.ts";
 
 describe("StartsWithOperator", () => {
   it("returns true when the value starts with the operand", () => {
