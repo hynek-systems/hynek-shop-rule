@@ -126,4 +126,18 @@ describe("Group", () => {
     expect(() => group.insertAt(-1, child)).toThrowError(RangeError);
     expect(() => group.insertAt(1, child)).toThrowError(RangeError);
   });
+
+  it("should detach all children and return them", () => {
+    const group = new Group(new OrOperator());
+    const child1 = new Group(new AndOperator());
+    const child2 = new Group(new OrOperator());
+    group.append(child1);
+    group.append(child2);
+    const detachedChildren = group.detachChildren();
+    expect(detachedChildren).toContain(child1);
+    expect(detachedChildren).toContain(child2);
+    expect(group.children.length).toBe(0);
+    expect(child1.parent).toBeNull();
+    expect(child2.parent).toBeNull();
+  });
 });

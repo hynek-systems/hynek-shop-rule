@@ -60,6 +60,18 @@ export class Group extends Node {
     return node;
   }
 
+  public detachChildren(): Node[] {
+    const children = [...this._children];
+
+    this._children.length = 0;
+
+    for (const child of children) {
+      child.setParent(null);
+    }
+
+    return children;
+  }
+
   public clear(): void {
     for (const child of this._children) {
       child.setParent(null);
