@@ -4,7 +4,7 @@ import type { BaseExpression } from "./base-expression.ts";
 export interface DateExpression extends BaseExpression<Date> {
   before(value: Date): Rule;
 
-  after(value: Date): never;
+  after(value: Date): Rule;
 
   between(from: Date, to: Date): Rule;
 }

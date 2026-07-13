@@ -107,4 +107,24 @@ describe("RuleEvaluator", () => {
       }),
     ).toBe(false);
   });
+
+  it("evaluates after", () => {
+    const tree = new RuleTree();
+
+    tree.root.append(Rule.field<Date>("createdAt").after(new Date("2026-01-01")));
+
+    const evaluator = new RuleEvaluator(new ObjectFieldResolver());
+
+    expect(
+      evaluator.evaluate(tree, {
+        createdAt: new Date("2026-02-01"),
+      }),
+    ).toBe(true);
+
+    expect(
+      evaluator.evaluate(tree, {
+        createdAt: new Date("2026-01-01"),
+      }),
+    ).toBe(false);
+  });
 });
