@@ -50,6 +50,16 @@ export class Group extends Node {
     return node;
   }
 
+  public insertAt<T extends Node>(index: number, node: T): T {
+    if (index < 0 || index > this._children.length) {
+      throw new RangeError("Index is out of bounds.");
+    }
+
+    this._children.splice(index, 0, this.attach(node));
+
+    return node;
+  }
+
   public clear(): void {
     for (const child of this._children) {
       child.setParent(null);
@@ -58,16 +68,18 @@ export class Group extends Node {
     this._children.length = 0;
   }
 
-  public detach(node: Node): void {
+  public detach(node: Node): number {
     const index = this._children.indexOf(node);
 
     if (index === -1) {
-      return;
+      return -1;
     }
 
     node.setParent(null);
 
     this._children.splice(index, 1);
+
+    return index;
   }
 
   public replace(oldNode: Node, newNode: Node): void {
