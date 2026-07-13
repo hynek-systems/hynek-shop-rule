@@ -1,6 +1,6 @@
-export enum OperandKind {
-  None,
-  Single,
-  Multiple,
-  Range,
-}
+export const OperandKind = {
+  None: "None",
+  Single: "Single",
+  Multiple: "Multiple",
+  Range: "Range",
+} as const;
