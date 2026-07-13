@@ -6,10 +6,11 @@ import { Group } from "../src/nodes/group.ts";
 import { AndOperator } from "../src/operators/group/and-operator.ts";
 import { NotEqualsOperator } from "../src/operators/rule/not-equals-operator.ts";
 import { Field } from "../src/fields/field.ts";
+import { StringFieldType } from "../src/fields/field-types.ts";
 
 class TestField extends Field<string> {
   public constructor() {
-    super("country", "Land");
+    super("country", "Land", StringFieldType);
   }
 
   public operators() {

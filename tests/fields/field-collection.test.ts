@@ -2,12 +2,13 @@ import { describe, expect, it } from "vite-plus/test";
 
 import { FieldCollection } from "../../src/fields/field-collection.ts";
 import { Field } from "../../src/fields/field.ts";
+import { NumberFieldType, StringFieldType } from "../../src/fields/field-types.ts";
 
 describe("FieldCollection", () => {
   it("registers fields", () => {
     const fields = new FieldCollection();
 
-    const price = new Field<number>("price", "Price");
+    const price = new Field("price", "Price", NumberFieldType);
 
     fields.register(price);
 
@@ -17,15 +18,17 @@ describe("FieldCollection", () => {
   it("throws when registering the same field twice", () => {
     const fields = new FieldCollection();
 
-    fields.register(new Field("price", "Price"));
+    fields.register(new Field("price", "Price", NumberFieldType));
 
-    expect(() => fields.register(new Field("price", "Price"))).toThrow();
+    expect(() => fields.register(new Field("price", "Price", NumberFieldType))).toThrow();
   });
 
   it("is iterable", () => {
     const fields = new FieldCollection();
 
-    fields.register(new Field("price", "Price")).register(new Field("country", "Country"));
+    fields
+      .register(new Field("price", "Price", NumberFieldType))
+      .register(new Field("country", "Country", StringFieldType));
 
     expect([...fields].map((field) => field.id)).toEqual(["price", "country"]);
   });
