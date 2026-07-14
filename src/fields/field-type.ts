@@ -7,5 +7,6 @@ export class FieldType<T> {
     public readonly label: string,
     public readonly control: (typeof ValueControl)[keyof typeof ValueControl],
     public readonly operators: readonly RuleOperator["id"][] = [],
+    public readonly defaultValue: T = "" as unknown as T,
   ) {}
 }
