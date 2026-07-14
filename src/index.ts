@@ -11,6 +11,7 @@ export * from "./operators/group/group-operator.ts";
 export * from "./operators/group/or-operator.ts";
 export * from "./operators/rule/after-operator.ts";
 export * from "./operators/rule/before-operator.ts";
+export * from "./operators/rule/between-operator.ts";
 export * from "./operators/rule/contains-operator.ts";
 export * from "./operators/rule/ends-with-operator.ts";
 export * from "./operators/rule/equals-operator.ts";
