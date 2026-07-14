@@ -23,6 +23,10 @@ export class FieldCollection implements Iterable<Field> {
     return field;
   }
 
+  public first(): Field | undefined {
+    return this.#fields.values().next().value;
+  }
+
   public has(id: string): boolean {
     return this.#fields.has(id);
   }
