@@ -1,5 +1,6 @@
 import { FieldCollection } from "./fields/field-collection.ts";
 import type { Field } from "./fields/field.ts";
+import { AndOperator } from "./operators/group/and-operator.ts";
 import { GroupOperator } from "./operators/group/group-operator.ts";
 import { OperatorRegistry } from "./operators/operator-registry.ts";
 import { RuleOperator } from "./operators/rule/rule-operator.ts";
@@ -13,6 +14,8 @@ export class RuleContext {
   public readonly ruleOperators = new OperatorRegistry<RuleOperator>();
 
   public readonly fields = new FieldCollection();
+
+  public readonly defaultGroupOperator = new AndOperator();
 
   public getOperators(field: Field): RuleOperator[] {
     const ids = field.options.operators ?? field.type.operators;
