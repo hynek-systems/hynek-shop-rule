@@ -7,9 +7,9 @@ import type { Expression } from "../expression/expression.ts";
 
 export class Rule extends Node {
   public constructor(
-    public readonly field: string,
-    public readonly operator: RuleOperator,
-    public readonly value: unknown,
+    public field: string,
+    public operator: RuleOperator,
+    public value: unknown,
   ) {
     super();
   }
