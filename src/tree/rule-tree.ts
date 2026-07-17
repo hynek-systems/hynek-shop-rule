@@ -9,4 +9,8 @@ export class RuleTree {
   public toJSON(): RuleTreeDto {
     return new RuleTreeSerializer().serialize(this);
   }
+
+  public toString(): string {
+    return JSON.stringify(this.toJSON());
+  }
 }
