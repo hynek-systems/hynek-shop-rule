@@ -1,5 +1,6 @@
 import type { NodeVisitor } from "../visitors/node-visitor.ts";
 import type { Group } from "./group.ts";
+import { v4 as uuidv4 } from "uuid";
 
 export abstract class Node {
   public readonly id: string;
@@ -7,7 +8,7 @@ export abstract class Node {
   public parent: Group | null = null;
 
   protected constructor(id?: string) {
-    this.id = id ?? crypto.randomUUID();
+    this.id = id ?? uuidv4();
   }
 
   public get root(): Group {
