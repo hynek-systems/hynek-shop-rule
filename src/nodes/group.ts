@@ -6,7 +6,7 @@ import type { NodeVisitor } from "../visitors/node-visitor.ts";
 export class Group extends Node {
   private readonly _children: Node[] = [];
 
-  public constructor(public readonly operator: GroupOperator) {
+  public constructor(public operator: GroupOperator) {
     super();
   }
 
