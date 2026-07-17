@@ -2,6 +2,7 @@ export * from "./clone/rule-tree-cloner.ts";
 export * from "./fields/field-type.ts";
 export * from "./fields/field-types.ts";
 export * from "./fields/field.ts";
+export * from "./fields/value-control.ts";
 export * from "./nodes/group.ts";
 export * from "./nodes/node.ts";
 export * from "./nodes/rule.ts";
