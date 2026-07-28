@@ -10,16 +10,17 @@ Releases are published from GitHub Actions with npm provenance.
 
 ## Release process
 
-1. Update `CHANGELOG.md` and set the same version in `package.json` and
-   `package-lock.json`.
+1. Update and review `CHANGELOG.md` for the intended version.
 2. Run `npm publish --dry-run`. This executes formatting, lint, type checks, all
    tests, the build, and the isolated packed-package consumer test.
-3. Merge the release commit to `main`.
-4. Create and push an annotated `v<version>` tag for that commit.
-5. Verify the GitHub release workflow and npm provenance statement.
+3. Run `vp run release -- --release <version>`. The installed `bumpp` updates
+   manifests, creates the release commit and tag, and pushes both.
+4. Verify the GitHub release workflow, generated release notes, and npm
+   provenance statement.
 
 The workflow rejects tags that do not exactly match the package version. Do not
-reuse or move a published version tag.
+reuse or move a published version tag. The checked-in changelog is curated;
+GitHub release notes are generated automatically from merged changes.
 
 For emergency manual recovery, run the same dry-run first and then
 `npm publish --provenance --access public` from the tagged commit using an

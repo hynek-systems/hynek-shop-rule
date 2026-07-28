@@ -39,7 +39,8 @@
     "test:package": "vp pack && node tests/package-consumer.mjs",
     "check": "vp check",
     "prepublishOnly": "vp check && vp test && vp run test:package && vp run benchmark",
-    "prepare": "vp config"
+    "prepare": "vp config",
+    "release": "bumpp --all"
   },
   "dependencies": {
     "uuid": "^14.0.1"

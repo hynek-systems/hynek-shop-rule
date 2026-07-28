@@ -154,3 +154,5 @@ Release operations are documented in [docs/releasing.md](docs/releasing.md), and
 vulnerability reporting is covered by [SECURITY.md](SECURITY.md).
 Performance baselines and budgets are documented in
 [docs/performance.md](docs/performance.md).
+Public compatibility guarantees are documented in
+[docs/api-stability.md](docs/api-stability.md).

@@ -117,6 +117,7 @@ try {
   for (const documentationPath of [
     "CHANGELOG.md",
     "SECURITY.md",
+    "docs/api-stability.md",
     "docs/extensions.md",
     "docs/performance.md",
     "docs/releasing.md",
