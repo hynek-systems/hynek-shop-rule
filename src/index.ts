@@ -33,6 +33,7 @@ export * from "./serializer/rule-tree-deserialization-error.ts";
 export * from "./serializer/types.ts";
 export * from "./support/registry-error.ts";
 export * from "./support/registry.ts";
+export * from "./testing/rule-operator-contract.ts";
 export * from "./tree/rule-tree.ts";
 export * from "./validation/validation-error.ts";
 export * from "./validation/rule-tree-validator.ts";
