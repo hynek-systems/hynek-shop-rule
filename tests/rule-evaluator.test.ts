@@ -36,6 +36,21 @@ describe("RuleEvaluator", () => {
     ).toBe(false);
   });
 
+  it("handles missing and null field values", () => {
+    const evaluator = new RuleEvaluator(new ObjectFieldResolver());
+    const missingTree = new RuleTree();
+    missingTree.root.append(Rule.field<string>("name").contains("son"));
+
+    expect(evaluator.evaluate(missingTree, {})).toBe(false);
+    expect(evaluator.evaluate(missingTree, { name: null })).toBe(false);
+
+    const nullTree = new RuleTree();
+    nullTree.root.append(Rule.field<null>("deletedAt").equals(null));
+
+    expect(evaluator.evaluate(nullTree, { deletedAt: null })).toBe(true);
+    expect(evaluator.evaluate(nullTree, {})).toBe(false);
+  });
+
   it("evaluates lessThanOrEqual", () => {
     const tree = new RuleTree();
 

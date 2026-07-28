@@ -1,4 +1,5 @@
 import { Group } from "../nodes/group.ts";
+import type { Node } from "../nodes/node.ts";
 import { Rule } from "../nodes/rule.ts";
 
 import { RuleSerializer } from "./rule-serializer.ts";
@@ -12,15 +13,19 @@ export class GroupSerializer {
     return {
       type: "group",
       operator: group.operator.id,
-      children: group.children.map((child) => this.serializeNode(child as any)),
+      children: group.children.map((child) => this.serializeNode(child)),
     };
   }
 
-  private serializeNode(node: Rule | Group): NodeDto {
+  private serializeNode(node: Node): NodeDto {
     if (node instanceof Rule) {
       return this.#ruleSerializer.serialize(node);
     }
 
-    return this.serialize(node);
+    if (node instanceof Group) {
+      return this.serialize(node);
+    }
+
+    throw new TypeError(`Unsupported rule tree node "${node.constructor.name}".`);
   }
 }

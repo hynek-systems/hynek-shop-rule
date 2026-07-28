@@ -25,6 +25,9 @@ export class RuleTreeCloner extends TraversingNodeVisitor<Group | Rule> {
   }
 
   protected override onRule(rule: Rule): Rule {
-    return new Rule(rule.field, rule.operator, rule.value);
+    const serializedValue = rule.operator.serializeOperand(rule.value);
+    const clonedValue = structuredClone(serializedValue);
+
+    return new Rule(rule.field, rule.operator, rule.operator.deserializeOperand(clonedValue));
   }
 }
