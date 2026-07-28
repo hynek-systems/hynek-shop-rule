@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vite-plus/test";
+import { readFileSync } from "node:fs";
 import { OperatorRegistry } from "../src/operators/operator-registry.ts";
 import { GroupOperator } from "../src/operators/group/group-operator.ts";
 import { AndOperator } from "../src/operators/group/and-operator.ts";
@@ -20,6 +21,22 @@ import {
 } from "../src/serializer/rule-tree-deserialization-error.ts";
 
 describe("RuleTree deserialization", () => {
+  it.each(["rule-tree-v0.json", "rule-tree-v1.json"])(
+    "reads the compatibility fixture %s",
+    (filename) => {
+      const context = new RuleContext();
+      context.groupOperators.register(new AndOperator());
+      context.ruleOperators.register(new EqualsOperator());
+      const dto: unknown = JSON.parse(
+        readFileSync(new URL(`./fixtures/${filename}`, import.meta.url), "utf8"),
+      );
+
+      const tree = context.fromJSON(dto);
+
+      expect(tree.root.children).toHaveLength(1);
+    },
+  );
+
   it("deserializes a tree", () => {
     const context = new RuleContext();
     context.groupOperators.register(new AndOperator());

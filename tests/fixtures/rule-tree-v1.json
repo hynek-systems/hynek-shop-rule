@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "root": {
+    "type": "group",
+    "operator": "and",
+    "children": [
+      {
+        "type": "rule",
+        "field": "country",
+        "operator": "=",
+        "value": "SE"
+      }
+    ]
+  }
+}
