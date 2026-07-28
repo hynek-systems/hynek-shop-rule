@@ -29,7 +29,9 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
-          cache: npm
+          package-manager-cache: false
+      - name: Set up npm
+        run: npm install --global npm@12.0.1
       - name: Set up Vite+
         uses: voidzero-dev/setup-vp@v1
         with:
@@ -52,7 +54,9 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24
-          cache: npm
+          package-manager-cache: false
+      - name: Set up npm
+        run: npm install --global npm@12.0.1
       - name: Set up Vite+
         uses: voidzero-dev/setup-vp@v1
         with:
