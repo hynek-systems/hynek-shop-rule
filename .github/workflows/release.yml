@@ -22,8 +22,10 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24
-          cache: npm
           registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - name: Set up npm
+        run: npm install --global npm@12.0.1
       - name: Set up Vite+
         uses: voidzero-dev/setup-vp@v1
         with:
@@ -38,6 +40,8 @@ jobs:
       - name: Verify packed package
         run: vp run test:package
       - name: Publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish --provenance --access public
       - name: Create GitHub release notes
         env:

@@ -4,9 +4,36 @@ Releases are published from GitHub Actions with npm provenance.
 
 ## Prerequisites
 
-- Configure npm trusted publishing for the `Release` workflow in this repository.
+- Ensure the npm organization `hynek-shop` exists and the releasing account can
+  publish public packages in that scope.
+- Configure the GitHub environment `npm` with tag protection for `v*` and, when
+  appropriate, a required reviewer.
+- Configure npm trusted publishing for the `Release` workflow after the package
+  exists on npm.
 - Protect the GitHub `npm` environment and the `main` branch.
 - Ensure CI passes on every supported Node.js version.
+
+## First publish
+
+Trusted publishing is configured from an existing package's settings, so the
+first publish needs a temporary granular npm access token:
+
+1. Create a granular npm token that can publish public packages in the
+   `hynek-shop` scope and bypasses 2FA for automation.
+2. Add it as the `NPM_TOKEN` secret on the GitHub `npm` environment.
+3. Push the `v1.0.0` tag and approve the environment deployment. The workflow
+   uses the token as a fallback while still generating provenance.
+4. On npmjs.com, open `@hynek-shop/rule` → Settings → Trusted Publisher and use:
+   - Organization or user: `hynek-systems`
+   - Repository: `hynek-shop-rule`
+   - Workflow filename: `release.yml`
+   - Environment name: `npm`
+   - Allowed action: `npm publish`
+5. Delete the `NPM_TOKEN` environment secret and revoke the temporary token.
+6. In the package's Publishing access settings, require 2FA and disallow tokens.
+
+The npm CLI prefers the GitHub OIDC identity over `NODE_AUTH_TOKEN`, so later
+releases use trusted publishing even before the temporary secret is removed.
 
 ## Release process
 
