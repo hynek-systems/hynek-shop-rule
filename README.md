@@ -150,3 +150,5 @@ The persisted DTO format and compatibility policy are documented in
 [docs/serialization.md](docs/serialization.md).
 Supported customization APIs are documented in
 [docs/extensions.md](docs/extensions.md).
+Release operations are documented in [docs/releasing.md](docs/releasing.md), and
+vulnerability reporting is covered by [SECURITY.md](SECURITY.md).
