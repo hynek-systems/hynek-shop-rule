@@ -4,3 +4,5 @@ export const OperandKind = {
   Multiple: "Multiple",
   Range: "Range",
 } as const;
+
+export type OperandKind = (typeof OperandKind)[keyof typeof OperandKind];

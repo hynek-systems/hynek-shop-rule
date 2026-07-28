@@ -14,6 +14,10 @@ export class Group extends Node {
     return this._children;
   }
 
+  public override get root(): Group {
+    return this.parent?.root ?? this;
+  }
+
   public append<T extends Node>(node: T): T {
     this._children.push(this.attach(node));
 

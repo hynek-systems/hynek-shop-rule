@@ -47,6 +47,12 @@ describe("RuleTree", () => {
     expect(rule.root).toBe(tree.root);
   });
 
+  it("has no root for a detached rule", () => {
+    const rule = new Rule("country", new EqualsOperator(), "SE");
+
+    expect(rule.root).toBeNull();
+  });
+
   it("removes a node", () => {
     const tree = new RuleTree();
 

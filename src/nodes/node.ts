@@ -11,14 +11,8 @@ export abstract class Node {
     this.id = id ?? uuidv4();
   }
 
-  public get root(): Group {
-    let node: Node = this;
-
-    while (node.parent) {
-      node = node.parent;
-    }
-
-    return node as Group;
+  public get root(): Group | null {
+    return this.parent?.root ?? null;
   }
 
   public setParent(parent: Group | null): void {
