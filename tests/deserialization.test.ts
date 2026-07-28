@@ -9,6 +9,12 @@ import { RuleTreeSerializer } from "../src/serializer/rule-tree-serializer.ts";
 import { RuleTree } from "../src/tree/rule-tree.ts";
 import { Rule } from "../src/nodes/rule.ts";
 import { RuleContext } from "../src/rule-context.ts";
+import { Field } from "../src/fields/field.ts";
+import { StringFieldType } from "../src/fields/field-types.ts";
+import {
+  RuleTreeDeserializationError,
+  RuleTreeDeserializationErrorCode,
+} from "../src/serializer/rule-tree-deserialization-error.ts";
 
 describe("RuleTree deserialization", () => {
   it("deserializes a tree", () => {
@@ -72,5 +78,79 @@ describe("RuleTree deserialization", () => {
     });
 
     expect(tree).toBeInstanceOf(RuleTree);
+  });
+
+  it.each([
+    {
+      name: "unsupported versions",
+      dto: { version: 2, root: {} },
+      code: RuleTreeDeserializationErrorCode.UnsupportedVersion,
+      path: "$.version",
+    },
+    {
+      name: "malformed root nodes",
+      dto: { version: 1, root: null },
+      code: RuleTreeDeserializationErrorCode.InvalidDto,
+      path: "$.root",
+    },
+    {
+      name: "unknown group operators",
+      dto: {
+        version: 1,
+        root: { type: "group", operator: "missing", children: [] },
+      },
+      code: RuleTreeDeserializationErrorCode.UnknownGroupOperator,
+      path: "$.root.operator",
+    },
+  ])("reports $name with a stable code and path", ({ dto, code, path }) => {
+    const context = new RuleContext();
+
+    expect(() => context.fromJSON(dto)).toThrowError(
+      expect.objectContaining<Partial<RuleTreeDeserializationError>>({ code, path }),
+    );
+  });
+
+  it("reports unknown rule operators at their node path", () => {
+    const context = new RuleContext();
+    context.groupOperators.register(new AndOperator());
+
+    expect(() =>
+      context.fromJSON({
+        version: 1,
+        root: {
+          type: "group",
+          operator: "and",
+          children: [{ type: "rule", field: "country", operator: "missing", value: "SE" }],
+        },
+      }),
+    ).toThrowError(
+      expect.objectContaining<Partial<RuleTreeDeserializationError>>({
+        code: RuleTreeDeserializationErrorCode.UnknownRuleOperator,
+        path: "$.root.children[0].operator",
+      }),
+    );
+  });
+
+  it("reports unknown fields when the context defines a field schema", () => {
+    const context = new RuleContext();
+    context.groupOperators.register(new AndOperator());
+    context.ruleOperators.register(new EqualsOperator());
+    context.fields.register(new Field("country", "Country", StringFieldType));
+
+    expect(() =>
+      context.fromJSON({
+        version: 1,
+        root: {
+          type: "group",
+          operator: "and",
+          children: [{ type: "rule", field: "missing", operator: "=", value: "SE" }],
+        },
+      }),
+    ).toThrowError(
+      expect.objectContaining<Partial<RuleTreeDeserializationError>>({
+        code: RuleTreeDeserializationErrorCode.UnknownField,
+        path: "$.root.children[0].field",
+      }),
+    );
   });
 });

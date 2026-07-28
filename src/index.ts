@@ -29,6 +29,7 @@ export * from "./operators/rule/starts-with-operator.ts";
 export * from "./operators/rule/operand-kind.ts";
 export * from "./operators/rule/rule-operator.ts";
 export * from "./operators/operator-registry.ts";
+export * from "./serializer/rule-tree-deserialization-error.ts";
 export * from "./serializer/types.ts";
 export * from "./tree/rule-tree.ts";
 export * from "./validation/validation-error.ts";
