@@ -1,6 +1,6 @@
 # Roadmap
 
-Den här roadmapen beskriver vägen från den nuvarande regelmotorn i version
+Den här roadmapen beskriver vägen från den ursprungliga regelmotorn i version
 `0.0.1` till ett stabilt och dokumenterat bibliotek som kan användas av andra
 paket och applikationer. Prioriteringarna är resultatbaserade och saknar fasta
 datum tills releasekapacitet och konsumenternas behov är kända.
@@ -23,12 +23,14 @@ Projektet har redan en tydlig domänmodell och tester för följande delar:
 - serialisering och deserialisering
 - validering, traversering och kloning
 
-De största luckorna inför extern användning är dokumentation, ett granskat
-publikt API och en definierad releaseprocess. README-filen beskriver ännu bara
-utvecklingskommandon, och flera implementerade funktioner exponeras inte från
-paketets huvudingång.
+Version `0.1.0` har ett dokumenterat publikt API för kompletta konsumentflöden
+och verifierar den packade artefakten mot både Node.js och TypeScript. Nästa
+steg är att stabilisera serialiseringsformatet, felmodellen och kompatibiliteten
+mellan versioner.
 
 ## Fas 1: Användbart paket
+
+**Status:** Klar i `0.1.0`.
 
 **Syfte:** En ny konsument ska kunna installera biblioteket och genomföra ett
 komplett arbetsflöde utan kunskap om intern filstruktur.
