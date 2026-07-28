@@ -7,6 +7,7 @@ import { join, resolve } from "node:path";
 const root = resolve(import.meta.dirname, "..");
 const temporaryDirectory = mkdtempSync(join(tmpdir(), "hynek-shop-rule-"));
 const npm = process.platform === "win32" ? "npm.cmd" : "npm";
+const npmEnvironment = { ...process.env, npm_config_dry_run: "false" };
 let tarballPath;
 
 const runtimeConsumer = `
@@ -58,6 +59,7 @@ try {
   const packResult = execFileSync(npm, ["pack", "--json", "--ignore-scripts"], {
     cwd: root,
     encoding: "utf8",
+    env: npmEnvironment,
   });
   const packMetadata = JSON.parse(packResult);
   const packageMetadata = Array.isArray(packMetadata)
@@ -76,6 +78,7 @@ try {
 
   execFileSync(npm, ["install", "--ignore-scripts", "--no-audit", "--no-fund", tarballPath], {
     cwd: temporaryDirectory,
+    env: npmEnvironment,
     stdio: "inherit",
   });
   execFileSync(process.execPath, [join(temporaryDirectory, "consumer.mjs")], {
