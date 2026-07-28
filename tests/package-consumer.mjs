@@ -15,12 +15,35 @@ import assert from "node:assert/strict";
 import {
   AndOperator,
   EqualsOperator,
+  OperandKind,
   ObjectFieldResolver,
   Rule,
   RuleContext,
   RuleEvaluator,
+  RuleOperator,
   RuleTree,
+  assertRuleOperatorContract,
 } from "@hynek-shop/rule";
+
+class IsEvenOperator extends RuleOperator {
+  id = "is_even";
+  label = "Is even";
+  operandKind = OperandKind.None;
+
+  isValidOperand(value) {
+    return value === null;
+  }
+
+  evaluate(left) {
+    return typeof left === "number" && left % 2 === 0;
+  }
+}
+
+const customOperator = new IsEvenOperator();
+assertRuleOperatorContract(customOperator, {
+  validOperands: [null],
+  invalidOperands: [1],
+});
 
 const context = new RuleContext();
 context.groupOperators.register(new AndOperator());
@@ -33,6 +56,10 @@ const restored = context.fromJSON(tree.toJSON());
 const evaluator = new RuleEvaluator(new ObjectFieldResolver());
 
 assert.equal(evaluator.evaluate(restored, { country: "SE" }), true);
+
+const customTree = new RuleTree();
+customTree.root.append(new Rule("quantity", customOperator, null));
+assert.equal(evaluator.evaluate(customTree, { quantity: 4 }), true);
 `;
 
 const typeConsumer = `

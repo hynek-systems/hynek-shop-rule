@@ -148,3 +148,5 @@ vp pack
 See [ROADMAP.md](ROADMAP.md) for planned API stabilization and release goals.
 The persisted DTO format and compatibility policy are documented in
 [docs/serialization.md](docs/serialization.md).
+Supported customization APIs are documented in
+[docs/extensions.md](docs/extensions.md).
