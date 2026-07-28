@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
@@ -111,6 +111,20 @@ try {
   execFileSync(process.execPath, [join(temporaryDirectory, "consumer.mjs")], {
     stdio: "inherit",
   });
+
+  const installedPackage = join(temporaryDirectory, "node_modules", "@hynek-shop", "rule");
+
+  for (const documentationPath of [
+    "CHANGELOG.md",
+    "SECURITY.md",
+    "docs/extensions.md",
+    "docs/performance.md",
+    "docs/releasing.md",
+    "docs/serialization.md",
+  ]) {
+    assert.equal(existsSync(join(installedPackage, documentationPath)), true);
+  }
+
   execFileSync(
     join(root, "node_modules", ".bin", "tsc"),
     [

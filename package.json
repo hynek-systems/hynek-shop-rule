@@ -19,7 +19,9 @@
   },
   "files": [
     "dist",
-    "CHANGELOG.md"
+    "docs",
+    "CHANGELOG.md",
+    "SECURITY.md"
   ],
   "type": "module",
   "exports": {
