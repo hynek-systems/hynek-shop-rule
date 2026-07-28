@@ -2,6 +2,7 @@ import { describe, it, expect } from "vite-plus/test";
 import { RuleTree } from "../src/tree/rule-tree.ts";
 import { RuleTreeValidator } from "../src/validation/rule-tree-validator.ts";
 import { Rule } from "../src/nodes/rule.ts";
+import { ValidationErrorCode } from "../src/validation/validation-error.ts";
 
 describe("RuleTreeValidator", () => {
   it("validates a rule tree", () => {
@@ -12,6 +13,10 @@ describe("RuleTreeValidator", () => {
     expect(errors).toHaveLength(1);
 
     expect(errors[0].node).toBe(tree.root);
+    expect(errors[0]).toMatchObject({
+      code: ValidationErrorCode.EmptyGroup,
+      path: "$.root",
+    });
   });
 
   it("validates a valid tree", () => {
@@ -34,5 +39,9 @@ describe("RuleTreeValidator", () => {
     expect(errors).toHaveLength(1);
 
     expect(errors[0].node).toBe(tree.root.children[0]);
+    expect(errors[0]).toMatchObject({
+      code: ValidationErrorCode.MissingField,
+      path: "$.root.children[0]",
+    });
   });
 });
