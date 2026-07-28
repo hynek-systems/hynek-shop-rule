@@ -1,7 +1,7 @@
 # Extension points
 
 The package exports stable base APIs for custom fields, operators, resolvers,
-visitors, and registries. Extensions should import only from `@hynek-shop/rule`.
+visitors, and registries. Extensions should import only from `@campino/rule`.
 
 ## Custom operator and field type
 
@@ -13,7 +13,7 @@ import {
   RuleOperator,
   ValueControl,
   assertRuleOperatorContract,
-} from "@hynek-shop/rule";
+} from "@campino/rule";
 
 class DivisibleByOperator extends RuleOperator {
   readonly id = "divisible_by";

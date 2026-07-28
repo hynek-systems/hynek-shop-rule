@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
-const temporaryDirectory = mkdtempSync(join(tmpdir(), "hynek-shop-rule-"));
+const temporaryDirectory = mkdtempSync(join(tmpdir(), "campino-rule-"));
 const npm = process.platform === "win32" ? "npm.cmd" : "npm";
 const npmEnvironment = { ...process.env, npm_config_dry_run: "false" };
 let tarballPath;
@@ -23,7 +23,7 @@ import {
   RuleOperator,
   RuleTree,
   assertRuleOperatorContract,
-} from "@hynek-shop/rule";
+} from "@campino/rule";
 
 class IsEvenOperator extends RuleOperator {
   id = "is_even";
@@ -70,7 +70,7 @@ import {
   RuleEvaluator,
   RuleTree,
   ValidationError,
-} from "@hynek-shop/rule";
+} from "@campino/rule";
 
 declare const dto: RuleTreeDto;
 declare const error: ValidationError;
@@ -112,7 +112,7 @@ try {
     stdio: "inherit",
   });
 
-  const installedPackage = join(temporaryDirectory, "node_modules", "@hynek-shop", "rule");
+  const installedPackage = join(temporaryDirectory, "node_modules", "@campino", "rule");
 
   for (const documentationPath of [
     "CHANGELOG.md",

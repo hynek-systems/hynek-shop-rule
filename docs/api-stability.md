@@ -5,7 +5,7 @@ rule tree format.
 
 ## Public API
 
-Symbols exported from `@hynek-shop/rule` are public. Removing an export,
+Symbols exported from `@campino/rule` are public. Removing an export,
 changing a public method signature incompatibly, narrowing accepted input, or
 changing documented behavior requires a major release.
 

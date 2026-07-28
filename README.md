@@ -1,4 +1,4 @@
-# @hynek-shop/rule
+# @campino/rule
 
 A typed TypeScript library for building, validating, evaluating, cloning, and
 serializing rule trees.
@@ -6,7 +6,7 @@ serializing rule trees.
 ## Installation
 
 ```bash
-npm install @hynek-shop/rule
+npm install @campino/rule
 ```
 
 The package is ESM-only and includes TypeScript declarations.
@@ -28,7 +28,7 @@ import {
   RuleTreeCloner,
   RuleTreeValidator,
   StringFieldType,
-} from "@hynek-shop/rule";
+} from "@campino/rule";
 
 const context = new RuleContext();
 
@@ -121,7 +121,7 @@ Implement `FieldResolver<T>` when values are nested, computed, or fetched from
 another data model:
 
 ```ts
-import type { FieldResolver } from "@hynek-shop/rule";
+import type { FieldResolver } from "@campino/rule";
 
 interface Product {
   attributes: Record<string, unknown>;

@@ -4,8 +4,8 @@ Releases are published from GitHub Actions with npm provenance.
 
 ## Prerequisites
 
-- Ensure the npm organization `hynek-shop` exists and the releasing account can
-  publish public packages in that scope.
+- Ensure the npm account `campino` owns the `@campino` scope and can publish
+  public packages in it.
 - Configure the GitHub environment `npm` with tag protection for `v*` and, when
   appropriate, a required reviewer.
 - Configure npm trusted publishing for the `Release` workflow after the package
@@ -18,12 +18,12 @@ Releases are published from GitHub Actions with npm provenance.
 Trusted publishing is configured from an existing package's settings, so the
 first publish needs a temporary granular npm access token:
 
-1. Create a granular npm token that can publish public packages in the
-   `hynek-shop` scope and bypasses 2FA for automation.
+1. While signed in as `campino`, create a granular npm token that can publish
+   public packages in the `@campino` scope and bypasses 2FA for automation.
 2. Add it as the `NPM_TOKEN` secret on the GitHub `npm` environment.
 3. Push the `v1.0.0` tag and approve the environment deployment. The workflow
    uses the token as a fallback while still generating provenance.
-4. On npmjs.com, open `@hynek-shop/rule` → Settings → Trusted Publisher and use:
+4. On npmjs.com, open `@campino/rule` → Settings → Trusted Publisher and use:
    - Organization or user: `hynek-systems`
    - Repository: `hynek-shop-rule`
    - Workflow filename: `release.yml`

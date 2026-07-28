@@ -1,5 +1,5 @@
 {
-  "name": "@hynek-shop/rule",
+  "name": "@campino/rule",
   "version": "1.0.0",
   "description": "A rule builder library for creating and evaluating rules in a structured manner.",
   "keywords": [
