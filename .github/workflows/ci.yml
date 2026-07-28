@@ -60,3 +60,5 @@ jobs:
           run-install: true
       - name: Verify packed package
         run: vp run test:package
+      - name: Check performance budgets
+        run: vp run benchmark

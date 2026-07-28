@@ -31,11 +31,12 @@
   },
   "scripts": {
     "build": "vp pack",
+    "benchmark": "vp pack && node benchmarks/rule-tree.mjs",
     "dev": "vp pack --watch",
     "test": "vp test",
     "test:package": "vp pack && node tests/package-consumer.mjs",
     "check": "vp check",
-    "prepublishOnly": "vp check && vp test && vp run test:package",
+    "prepublishOnly": "vp check && vp test && vp run test:package && vp run benchmark",
     "prepare": "vp config"
   },
   "dependencies": {
