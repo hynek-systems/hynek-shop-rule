@@ -8,6 +8,10 @@ export class GreaterThanOperator extends RuleOperator {
 
   public readonly operandKind = OperandKind.Single;
 
+  public override isValidOperand(value: unknown): boolean {
+    return typeof value === "number" && Number.isFinite(value);
+  }
+
   public evaluate(left: unknown, right: unknown): boolean {
     return typeof left === "number" && typeof right === "number" && left > right;
   }

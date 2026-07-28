@@ -8,7 +8,11 @@ export class ContainsOperator extends RuleOperator {
 
   readonly operandKind = OperandKind.Single;
 
+  public override isValidOperand(value: unknown): boolean {
+    return typeof value === "string";
+  }
+
   public evaluate(left: unknown, right: unknown): boolean {
-    return (left as string).includes(right as string);
+    return typeof left === "string" && typeof right === "string" && left.includes(right);
   }
 }

@@ -11,6 +11,22 @@ export class BetweenOperator extends RuleOperator {
 
   public readonly operandKind = OperandKind.Range;
 
+  public override isValidOperand(value: unknown): boolean {
+    if (!(value instanceof Range)) {
+      return false;
+    }
+
+    if (typeof value.from === "number" && typeof value.to === "number") {
+      return Number.isFinite(value.from) && Number.isFinite(value.to) && value.from <= value.to;
+    }
+
+    if (this.isValidDate(value.from) && this.isValidDate(value.to)) {
+      return value.from <= value.to;
+    }
+
+    return false;
+  }
+
   public evaluate(left: unknown, right: unknown): boolean {
     if (
       typeof left === "number" &&

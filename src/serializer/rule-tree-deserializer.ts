@@ -112,9 +112,10 @@ export class RuleTreeDeserializer {
     }
 
     const operator = this.context.ruleOperators.get(value.operator);
+    let operand: unknown;
 
     try {
-      return new Rule(value.field, operator, operator.deserializeOperand(value.value));
+      operand = operator.deserializeOperand(value.value);
     } catch (error) {
       throw new RuleTreeDeserializationError(
         RuleTreeDeserializationErrorCode.InvalidOperand,
@@ -123,6 +124,16 @@ export class RuleTreeDeserializer {
         { cause: error },
       );
     }
+
+    if (!operator.isValidOperand(operand)) {
+      this.fail(
+        RuleTreeDeserializationErrorCode.InvalidOperand,
+        `${path}.value`,
+        `Invalid operand for operator "${value.operator}".`,
+      );
+    }
+
+    return new Rule(value.field, operator, operand);
   }
 
   private isRecord(value: unknown): value is Record<PropertyKey, unknown> {

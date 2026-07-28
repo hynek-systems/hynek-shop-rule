@@ -9,6 +9,10 @@ export class BeforeOperator extends RuleOperator {
 
   public readonly operandKind = OperandKind.Single;
 
+  public override isValidOperand(value: unknown): boolean {
+    return this.isValidDate(value);
+  }
+
   public evaluate(left: unknown, right: unknown): boolean {
     return left instanceof Date && right instanceof Date && left < right;
   }

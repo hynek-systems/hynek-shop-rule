@@ -11,6 +11,9 @@ import { Rule } from "../src/nodes/rule.ts";
 import { RuleContext } from "../src/rule-context.ts";
 import { Field } from "../src/fields/field.ts";
 import { StringFieldType } from "../src/fields/field-types.ts";
+import { GreaterThanOperator } from "../src/operators/rule/greater-than-operator.ts";
+import { BeforeOperator } from "../src/operators/rule/before-operator.ts";
+import { BetweenOperator } from "../src/operators/rule/between-operator.ts";
 import {
   RuleTreeDeserializationError,
   RuleTreeDeserializationErrorCode,
@@ -150,6 +153,44 @@ describe("RuleTree deserialization", () => {
       expect.objectContaining<Partial<RuleTreeDeserializationError>>({
         code: RuleTreeDeserializationErrorCode.UnknownField,
         path: "$.root.children[0].field",
+      }),
+    );
+  });
+
+  it.each([
+    {
+      name: "a non-numeric comparison value",
+      operator: new GreaterThanOperator(),
+      value: "100",
+    },
+    {
+      name: "an invalid date",
+      operator: new BeforeOperator(),
+      value: "not-a-date",
+    },
+    {
+      name: "a reversed range",
+      operator: new BetweenOperator(),
+      value: { from: 20, to: 10 },
+    },
+  ])("rejects $name", ({ operator, value }) => {
+    const context = new RuleContext();
+    context.groupOperators.register(new AndOperator());
+    context.ruleOperators.register(operator);
+
+    expect(() =>
+      context.fromJSON({
+        version: 1,
+        root: {
+          type: "group",
+          operator: "and",
+          children: [{ type: "rule", field: "value", operator: operator.id, value }],
+        },
+      }),
+    ).toThrowError(
+      expect.objectContaining<Partial<RuleTreeDeserializationError>>({
+        code: RuleTreeDeserializationErrorCode.InvalidOperand,
+        path: "$.root.children[0].value",
       }),
     );
   });
