@@ -1,6 +1,6 @@
 {
   "name": "@hynek-shop/rule",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A rule builder library for creating and evaluating rules in a structured manner.",
   "keywords": [
     "campino",

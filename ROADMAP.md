@@ -23,10 +23,9 @@ Projektet har redan en tydlig domänmodell och tester för följande delar:
 - serialisering och deserialisering
 - validering, traversering och kloning
 
-Version `0.1.0` har ett dokumenterat publikt API för kompletta konsumentflöden
-och verifierar den packade artefakten mot både Node.js och TypeScript. Nästa
-steg är att stabilisera serialiseringsformatet, felmodellen och kompatibiliteten
-mellan versioner.
+Version `0.2.0` har ett dokumenterat publikt API, versionssatt lagringsformat,
+kompatibilitetsfixtures och strukturerade fel. Nästa steg är att stabilisera och
+dokumentera bibliotekets extension points.
 
 ## Fas 1: Användbart paket
 
@@ -50,6 +49,8 @@ avsedda funktioner kan importeras från dokumenterade entrypoints och `vp check`
 `vp test` samt `vp pack` passerar.
 
 ## Fas 2: Stabilt kontrakt
+
+**Status:** Klar i `0.2.0`.
 
 **Syfte:** Regelträd ska kunna sparas och flyttas mellan versioner med tydliga
 fel när data eller konfiguration är ogiltig.
