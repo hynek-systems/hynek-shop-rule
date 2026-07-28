@@ -1,4 +1,5 @@
 export * from "./clone/rule-tree-cloner.ts";
+export * from "./builders/rule-creation-error.ts";
 export * from "./evaluators/field-resolver.ts";
 export * from "./evaluators/object-field-resolver.ts";
 export * from "./evaluators/rule-evaluator.ts";

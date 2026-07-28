@@ -7,6 +7,9 @@ import { Field } from "../src/fields/field.ts";
 import { StringFieldType } from "../src/fields/field-types.ts";
 import { NotEqualsOperator } from "../src/operators/rule/not-equals-operator.ts";
 import { StartsWithOperator } from "../src/operators/rule/starts-with-operator.ts";
+import { GreaterThanOperator } from "../src/operators/rule/greater-than-operator.ts";
+import { NumberFieldType } from "../src/fields/field-types.ts";
+import { RuleCreationError, RuleCreationErrorCode } from "../src/builders/rule-creation-error.ts";
 
 describe("RuleContext", () => {
   it("returns the operators supported by a field", () => {
@@ -59,5 +62,39 @@ describe("RuleContext", () => {
     });
 
     expect(context.getOperators(field).map((operator) => operator.id)).toEqual(["="]);
+  });
+
+  it("creates a rule from registered field and operator contracts", () => {
+    const context = new RuleContext();
+    context.fields.register(new Field("price", "Price", NumberFieldType));
+    context.ruleOperators.register(new GreaterThanOperator());
+
+    const rule = context.createRule("price", "greater_than", 100);
+
+    expect(rule).toMatchObject({ field: "price", value: 100 });
+    expect(rule.operator).toBeInstanceOf(GreaterThanOperator);
+  });
+
+  it.each([
+    {
+      name: "unsupported operators",
+      operator: new ContainsOperator(),
+      value: "10",
+      code: RuleCreationErrorCode.UnsupportedOperator,
+    },
+    {
+      name: "invalid operands",
+      operator: new GreaterThanOperator(),
+      value: "100",
+      code: RuleCreationErrorCode.InvalidOperand,
+    },
+  ])("rejects $name when creating a rule", ({ operator, value, code }) => {
+    const context = new RuleContext();
+    context.fields.register(new Field("price", "Price", NumberFieldType));
+    context.ruleOperators.register(operator);
+
+    expect(() => context.createRule("price", operator.id, value)).toThrowError(
+      expect.objectContaining<Partial<RuleCreationError>>({ code }),
+    );
   });
 });
