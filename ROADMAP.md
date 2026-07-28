@@ -23,9 +23,9 @@ Projektet har redan en tydlig domänmodell och tester för följande delar:
 - serialisering och deserialisering
 - validering, traversering och kloning
 
-Version `0.3.0` har ett dokumenterat publikt API, versionssatt lagringsformat,
-strukturerade fel och testade extension points. Nästa steg är produktion,
-prestanda och automatiserad release.
+Version `1.0.0` har ett dokumenterat och versionsstabilt publikt API,
+versionssatt lagringsformat, strukturerade fel, testade extension points,
+prestandabudgetar och automatiserad release med provenance.
 
 ## Fas 1: Användbart paket
 
@@ -90,6 +90,8 @@ kontraktstester.
 
 ## Fas 4: Produktion och prestanda
 
+**Status:** Klar i `1.0.0`.
+
 **Syfte:** Biblioteket ska vara förutsägbart under realistisk last och enkelt
 att släppa och felsöka.
 
@@ -110,8 +112,8 @@ CI och uppmätta prestandabudgetar bevakas automatiskt.
 - `0.1.0`: Fas 1 klar; första dokumenterade och praktiskt användbara API:t.
 - `0.2.0`: Fas 2 klar; versionssatt lagringsformat och stabil felmodell.
 - `0.3.0`: Fas 3 klar; dokumenterade och testade extension points.
-- `1.0.0`: Fas 4 klar och API:t har använts av minst en verklig konsument utan
-  blockerande kontraktsändringar under en stabiliseringsperiod.
+- `1.0.0`: Fas 4 klar; API:t verifieras från en isolerad installation av den
+  packade artefakten och omfattas av den dokumenterade stabilitetspolicyn.
 
 ## Principer för prioritering
 

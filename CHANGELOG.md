@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.0.0 - 2026-07-28
+
+- Define semantic versioning guarantees for the public API and persistence format.
+- Add Node.js 22 and 24 CI, packed consumer checks, and performance budgets.
+- Limit tree depth to protect recursive operations from stack exhaustion.
+- Add tag-based npm publishing with provenance and generated release notes.
+- Add release, runtime support, security, and API stability policies.
+- Deep-clone operand values and make field defaults type-safe.
+
 ## 0.3.0 - 2026-07-28
 
 - Export stable registry and visitor extension base APIs.
