@@ -2,13 +2,13 @@ import { Group } from "../nodes/group.ts";
 import { Rule } from "../nodes/rule.ts";
 import { RuleTree } from "../tree/rule-tree.ts";
 
-import type { GroupDto, RuleDto, RuleTreeDto } from "./types.ts";
+import type { GroupDto, RuleDto, RuleTreeInputDto } from "./types.ts";
 import type { RuleContext } from "../rule-context.ts";
 
 export class RuleTreeDeserializer {
   public constructor(private readonly context: RuleContext) {}
 
-  public deserialize(dto: RuleTreeDto): RuleTree {
+  public deserialize(dto: RuleTreeInputDto): RuleTree {
     return new RuleTree(this.deserializeGroup(dto.root));
   }
 

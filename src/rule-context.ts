@@ -5,7 +5,7 @@ import { GroupOperator } from "./operators/group/group-operator.ts";
 import { OperatorRegistry } from "./operators/operator-registry.ts";
 import { RuleOperator } from "./operators/rule/rule-operator.ts";
 import { RuleTreeDeserializer } from "./serializer/rule-tree-deserializer.ts";
-import type { RuleTreeDto } from "./serializer/types.ts";
+import type { RuleTreeInputDto } from "./serializer/types.ts";
 import type { RuleTree } from "./tree/rule-tree.ts";
 
 export class RuleContext {
@@ -23,7 +23,7 @@ export class RuleContext {
     return ids.map((id) => this.ruleOperators.get(id));
   }
 
-  public fromJSON(dto: RuleTreeDto): RuleTree {
+  public fromJSON(dto: RuleTreeInputDto): RuleTree {
     return new RuleTreeDeserializer(this).deserialize(dto);
   }
 }

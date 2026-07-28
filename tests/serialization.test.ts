@@ -11,6 +11,7 @@ describe("RuleTree serialization", () => {
     tree.root.append(Rule.field("active").equals(true));
 
     expect(tree.toJSON()).toEqual({
+      version: 1,
       root: {
         type: "group",
         operator: "and",

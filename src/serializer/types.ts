@@ -18,6 +18,16 @@ export interface GroupDto {
 
 export type NodeDto = RuleDto | GroupDto;
 
+export const RULE_TREE_FORMAT_VERSION = 1 as const;
+
 export interface RuleTreeDto {
+  version: typeof RULE_TREE_FORMAT_VERSION;
+
   root: GroupDto;
 }
+
+export interface LegacyRuleTreeDto {
+  root: GroupDto;
+}
+
+export type RuleTreeInputDto = RuleTreeDto | LegacyRuleTreeDto;
