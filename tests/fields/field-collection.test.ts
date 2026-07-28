@@ -3,6 +3,7 @@ import { describe, expect, it } from "vite-plus/test";
 import { FieldCollection } from "../../src/fields/field-collection.ts";
 import { Field } from "../../src/fields/field.ts";
 import { NumberFieldType, StringFieldType } from "../../src/fields/field-types.ts";
+import { RegistryError, RegistryErrorCode } from "../../src/support/registry-error.ts";
 
 describe("FieldCollection", () => {
   it("registers fields", () => {
@@ -20,7 +21,12 @@ describe("FieldCollection", () => {
 
     fields.register(new Field("price", "Price", NumberFieldType));
 
-    expect(() => fields.register(new Field("price", "Price", NumberFieldType))).toThrow();
+    expect(() => fields.register(new Field("price", "Price", NumberFieldType))).toThrowError(
+      expect.objectContaining<Partial<RegistryError>>({
+        code: RegistryErrorCode.DuplicateKey,
+        key: "price",
+      }),
+    );
   });
 
   it("is iterable", () => {

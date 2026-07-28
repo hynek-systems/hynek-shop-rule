@@ -1,11 +1,16 @@
 import { Field } from "./field.ts";
+import { RegistryError, RegistryErrorCode } from "../support/registry-error.ts";
 
 export class FieldCollection implements Iterable<Field> {
   readonly #fields = new Map<string, Field>();
 
   public register(field: Field): this {
     if (this.#fields.has(field.id)) {
-      throw new Error(`Field "${field.id}" is already registered.`);
+      throw new RegistryError(
+        RegistryErrorCode.DuplicateKey,
+        field.id,
+        `Field "${field.id}" is already registered.`,
+      );
     }
 
     this.#fields.set(field.id, field);
@@ -17,7 +22,7 @@ export class FieldCollection implements Iterable<Field> {
     const field = this.#fields.get(id);
 
     if (!field) {
-      throw new Error(`Unknown field "${id}".`);
+      throw new RegistryError(RegistryErrorCode.UnknownKey, id, `Unknown field "${id}".`);
     }
 
     return field;

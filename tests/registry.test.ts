@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vite-plus/test";
 import { Registry } from "../src/support/registry.ts";
+import { RegistryError, RegistryErrorCode } from "../src/support/registry-error.ts";
 
 class TestRegistry extends Registry<string, string> {
   protected keyOf(value: string): string {
@@ -23,9 +24,12 @@ describe("Registry", () => {
 
     registry.register("item1");
 
-    expect(() => {
-      registry.register("item1");
-    }).toThrowError('An item with key "item1" is already registered.');
+    expect(() => registry.register("item1")).toThrowError(
+      expect.objectContaining<Partial<RegistryError>>({
+        code: RegistryErrorCode.DuplicateKey,
+        key: "item1",
+      }),
+    );
   });
 
   it("should be able to retrieve items by key", () => {
@@ -41,9 +45,12 @@ describe("Registry", () => {
   it("should throw an error when retrieving an item with a non-existent key", () => {
     const registry = new TestRegistry();
 
-    expect(() => {
-      registry.get("nonExistentItem");
-    }).toThrowError('No item registered with key "nonExistentItem".');
+    expect(() => registry.get("nonExistentItem")).toThrowError(
+      expect.objectContaining<Partial<RegistryError>>({
+        code: RegistryErrorCode.UnknownKey,
+        key: "nonExistentItem",
+      }),
+    );
   });
 
   it("should return all registered items", () => {

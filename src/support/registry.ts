@@ -1,3 +1,5 @@
+import { RegistryError, RegistryErrorCode } from "./registry-error.ts";
+
 export abstract class Registry<TKey extends PropertyKey, TValue> {
   readonly #items = new Map<TKey, TValue>();
 
@@ -7,7 +9,11 @@ export abstract class Registry<TKey extends PropertyKey, TValue> {
     const key = this.keyOf(value);
 
     if (this.#items.has(key)) {
-      throw new Error(`An item with key "${String(key)}" is already registered.`);
+      throw new RegistryError(
+        RegistryErrorCode.DuplicateKey,
+        key,
+        `An item with key "${String(key)}" is already registered.`,
+      );
     }
 
     this.#items.set(key, value);
@@ -23,7 +29,11 @@ export abstract class Registry<TKey extends PropertyKey, TValue> {
     const value = this.#items.get(key);
 
     if (!value) {
-      throw new Error(`No item registered with key "${String(key)}".`);
+      throw new RegistryError(
+        RegistryErrorCode.UnknownKey,
+        key,
+        `No item registered with key "${String(key)}".`,
+      );
     }
 
     return value;
