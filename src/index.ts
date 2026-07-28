@@ -36,6 +36,7 @@ export * from "./support/registry-error.ts";
 export * from "./support/registry.ts";
 export * from "./testing/rule-operator-contract.ts";
 export * from "./tree/rule-tree.ts";
+export * from "./tree/rule-tree-limits.ts";
 export * from "./validation/validation-error.ts";
 export * from "./validation/rule-tree-validator.ts";
 export * from "./validation/validator.ts";

@@ -15,6 +15,7 @@ import { StringFieldType } from "../src/fields/field-types.ts";
 import { GreaterThanOperator } from "../src/operators/rule/greater-than-operator.ts";
 import { BeforeOperator } from "../src/operators/rule/before-operator.ts";
 import { BetweenOperator } from "../src/operators/rule/between-operator.ts";
+import { MAX_RULE_TREE_DEPTH } from "../src/tree/rule-tree-limits.ts";
 import {
   RuleTreeDeserializationError,
   RuleTreeDeserializationErrorCode,
@@ -208,6 +209,25 @@ describe("RuleTree deserialization", () => {
       expect.objectContaining<Partial<RuleTreeDeserializationError>>({
         code: RuleTreeDeserializationErrorCode.InvalidOperand,
         path: "$.root.children[0].value",
+      }),
+    );
+  });
+
+  it("rejects trees that exceed the maximum depth", () => {
+    const context = new RuleContext();
+    context.groupOperators.register(new AndOperator());
+    let root: Record<string, unknown> = { type: "group", operator: "and", children: [] };
+    const dto = { version: 1, root };
+
+    for (let depth = 0; depth <= MAX_RULE_TREE_DEPTH; depth += 1) {
+      const child = { type: "group", operator: "and", children: [] };
+      root.children = [child];
+      root = child;
+    }
+
+    expect(() => context.fromJSON(dto)).toThrowError(
+      expect.objectContaining<Partial<RuleTreeDeserializationError>>({
+        code: RuleTreeDeserializationErrorCode.MaxDepthExceeded,
       }),
     );
   });

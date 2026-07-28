@@ -5,6 +5,7 @@ export const RuleTreeDeserializationErrorCode = {
   UnknownRuleOperator: "UNKNOWN_RULE_OPERATOR",
   UnknownField: "UNKNOWN_FIELD",
   InvalidOperand: "INVALID_OPERAND",
+  MaxDepthExceeded: "MAX_DEPTH_EXCEEDED",
 } as const;
 
 export type RuleTreeDeserializationErrorCode =

@@ -2,6 +2,7 @@ import { Node } from "./node.ts";
 
 import type { GroupOperator } from "../operators/group/group-operator.ts";
 import type { NodeVisitor } from "../visitors/node-visitor.ts";
+import { MAX_RULE_TREE_DEPTH, RuleTreeDepthError } from "../tree/rule-tree-limits.ts";
 
 export class Group extends Node {
   private readonly _children: Node[] = [];
@@ -105,9 +106,7 @@ export class Group extends Node {
       throw new Error("Node does not belong to this group.");
     }
 
-    if (newNode.parent) {
-      throw new Error("Node already belongs to a group.");
-    }
+    this.assertAttachable(newNode);
 
     oldNode.setParent(null);
 
@@ -121,12 +120,55 @@ export class Group extends Node {
   }
 
   private attach<T extends Node>(node: T): T {
-    if (node.parent) {
-      throw new Error("Node already belongs to a group.");
-    }
+    this.assertAttachable(node);
 
     node.setParent(this);
 
     return node;
+  }
+
+  private assertAttachable(node: Node): void {
+    if (node.parent) {
+      throw new Error("Node already belongs to a group.");
+    }
+
+    if (this.depth() + 1 + this.subtreeDepth(node) > MAX_RULE_TREE_DEPTH) {
+      throw new RuleTreeDepthError();
+    }
+  }
+
+  private depth(): number {
+    let depth = 0;
+    let group = this.parent;
+
+    while (group) {
+      depth += 1;
+      group = group.parent;
+    }
+
+    return depth;
+  }
+
+  private subtreeDepth(node: Node): number {
+    let maximumDepth = 0;
+    const pending: { node: Node; depth: number }[] = [{ node, depth: 0 }];
+
+    while (pending.length > 0) {
+      const current = pending.pop();
+
+      if (!current) {
+        break;
+      }
+
+      maximumDepth = Math.max(maximumDepth, current.depth);
+
+      if (current.node instanceof Group) {
+        for (const child of current.node.children) {
+          pending.push({ node: child, depth: current.depth + 1 });
+        }
+      }
+    }
+
+    return maximumDepth;
   }
 }

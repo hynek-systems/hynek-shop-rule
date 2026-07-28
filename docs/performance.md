@@ -25,3 +25,11 @@ runner noise as a product failure.
 Cloning creates fresh node IDs and is expected to cost more than evaluation or
 serialization. Change budgets only with a documented baseline from a supported
 Node.js version.
+
+## Tree depth
+
+Trees may contain at most `MAX_RULE_TREE_DEPTH` levels below the root group,
+currently 100. Programmatic mutations that exceed the limit throw
+`RuleTreeDepthError`; external DTOs fail with `MAX_DEPTH_EXCEEDED`. The limit
+keeps recursive visitors below typical JavaScript stack limits while allowing
+large flat trees.

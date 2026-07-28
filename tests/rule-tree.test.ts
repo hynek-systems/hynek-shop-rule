@@ -7,6 +7,7 @@ import { AndOperator } from "../src/operators/group/and-operator.ts";
 import { NotEqualsOperator } from "../src/operators/rule/not-equals-operator.ts";
 import { Field } from "../src/fields/field.ts";
 import { StringFieldType } from "../src/fields/field-types.ts";
+import { MAX_RULE_TREE_DEPTH, RuleTreeDepthError } from "../src/tree/rule-tree-limits.ts";
 
 class TestField extends Field<string> {
   public constructor() {
@@ -19,6 +20,17 @@ class TestField extends Field<string> {
 }
 
 describe("RuleTree", () => {
+  it("limits tree depth", () => {
+    const tree = new RuleTree();
+    let group = tree.root;
+
+    for (let depth = 0; depth < MAX_RULE_TREE_DEPTH; depth += 1) {
+      group = group.append(new Group(new AndOperator()));
+    }
+
+    expect(() => group.append(new Group(new AndOperator()))).toThrowError(RuleTreeDepthError);
+  });
+
   it("builds a tree", () => {
     const tree = new RuleTree();
 

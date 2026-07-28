@@ -8,6 +8,7 @@ import {
   RuleTreeDeserializationErrorCode,
 } from "./rule-tree-deserialization-error.ts";
 import { RULE_TREE_FORMAT_VERSION } from "./types.ts";
+import { MAX_RULE_TREE_DEPTH } from "../tree/rule-tree-limits.ts";
 
 export class RuleTreeDeserializer {
   public constructor(private readonly context: RuleContext) {}
@@ -25,10 +26,18 @@ export class RuleTreeDeserializer {
       );
     }
 
-    return new RuleTree(this.deserializeGroup(dto.root, "$.root"));
+    return new RuleTree(this.deserializeGroup(dto.root, "$.root", 0));
   }
 
-  private deserializeGroup(value: unknown, path: string): Group {
+  private deserializeGroup(value: unknown, path: string, depth: number): Group {
+    if (depth > MAX_RULE_TREE_DEPTH) {
+      this.fail(
+        RuleTreeDeserializationErrorCode.MaxDepthExceeded,
+        path,
+        `Rule tree depth must not exceed ${MAX_RULE_TREE_DEPTH}.`,
+      );
+    }
+
     if (!this.isRecord(value) || value.type !== "group") {
       this.fail(RuleTreeDeserializationErrorCode.InvalidDto, path, "Expected a group node.");
     }
@@ -63,7 +72,7 @@ export class RuleTreeDeserializer {
       const childPath = `${path}.children[${index}]`;
 
       if (this.isRecord(child) && child.type === "group") {
-        group.append(this.deserializeGroup(child, childPath));
+        group.append(this.deserializeGroup(child, childPath, depth + 1));
 
         continue;
       }
