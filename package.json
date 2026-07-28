@@ -1,6 +1,6 @@
 {
   "name": "@hynek-shop/rule",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A rule builder library for creating and evaluating rules in a structured manner.",
   "keywords": [
     "campino",
@@ -18,7 +18,8 @@
     "url": "git+https://github.com/hynek-systems/hynek-shop-rule.git"
   },
   "files": [
-    "dist"
+    "dist",
+    "CHANGELOG.md"
   ],
   "type": "module",
   "exports": {
