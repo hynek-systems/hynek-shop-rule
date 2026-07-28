@@ -23,9 +23,9 @@ Projektet har redan en tydlig domänmodell och tester för följande delar:
 - serialisering och deserialisering
 - validering, traversering och kloning
 
-Version `0.2.0` har ett dokumenterat publikt API, versionssatt lagringsformat,
-kompatibilitetsfixtures och strukturerade fel. Nästa steg är att stabilisera och
-dokumentera bibliotekets extension points.
+Version `0.3.0` har ett dokumenterat publikt API, versionssatt lagringsformat,
+strukturerade fel och testade extension points. Nästa steg är produktion,
+prestanda och automatiserad release.
 
 ## Fas 1: Användbart paket
 
@@ -69,6 +69,8 @@ fixtures och konsumenten kan presentera användbara valideringsfel utan att tolk
 generiska undantagsmeddelanden.
 
 ## Fas 3: Utbyggbart bibliotek
+
+**Status:** Klar i `0.3.0`.
 
 **Syfte:** Nya domänspecifika fält och operatorer ska kunna införas utan att
 ändra bibliotekets kärna.

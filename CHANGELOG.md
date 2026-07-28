@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.3.0 - 2026-07-28
+
+- Export stable registry and visitor extension base APIs.
+- Add framework-independent rule operator contract assertions.
+- Add context-aware rule creation with operator and operand validation.
+- Document and verify custom fields, operators, resolvers, visitors, and registries.
+
 ## 0.2.0 - 2026-07-28
 
 - Version the serialized rule tree format while retaining legacy format support.
