@@ -61,6 +61,21 @@ console.log(matches); // true
 console.log(copy.toString());
 ```
 
+## Database queries
+
+`RuleQueryCompiler` converts a rule tree into a database-neutral query expression.
+Map public rule field IDs to trusted database columns, then use a small adapter for
+the query builder used by your application:
+
+```ts
+const compiler = new RuleQueryCompiler({ status: "tickets.status" });
+const expression = compiler.compile(tree);
+```
+
+The compiler supports nested AND/OR groups, comparisons, string matching, dates,
+and ranges. Field mappings also provide an allow-list boundary between saved rules
+and database identifiers.
+
 `RuleContext` must contain every group and rule operator referenced by a DTO
 before calling `fromJSON`. Register fields when the context is also used to
 drive a rule editor or to look up the operators available for a field.
